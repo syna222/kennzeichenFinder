@@ -1,6 +1,6 @@
 
 
-export default function AZ(){
+export default function AZ({allKFZ}){
 
 
 
@@ -9,6 +9,9 @@ export default function AZ(){
     return(
     <>
         <h1>Kennzeichen A-Z:</h1>
+        <ul>
+            {allKFZ.map((kfz, i) => <li key={i}>{`${kfz.Kennzeichen} ${kfz.Stadt_Ort} ${kfz.Landkreis} ${kfz.Bundesland}`}</li>)}
+        </ul>
     </>
     );
 }

@@ -1,4 +1,5 @@
 import './App.css';
+import axios from 'axios';
 import SearchPage from './Components/SearchPage';
 import Listen from './Components/Listen';
 import AZ from './Components/AZ';
@@ -14,7 +15,17 @@ import { useEffect, useState } from 'react';
 export default function App() {
 
   const [ chosenKFZ, setChosenKFZ ] = useState();     //das hier in SearchPage setzen und an InfoPage passen
+  const [ allKFZ, setAllKFZ ] = useState([]);
 
+  useEffect(() => {
+    axios.get(`https://kennzeichenapi.onrender.com/`)
+        .then(res => {console.log(res.data); setAllKFZ(res.data)})
+        .catch(err => console.log(err))
+        .then(function (json) {
+         // always executed
+        });
+
+  }, []);
 
 
 
@@ -31,12 +42,12 @@ export default function App() {
         <Route path="/suche" element={<SearchPage setChosenKFZ={setChosenKFZ} chosenKFZ={chosenKFZ}/>}/>
         <Route path="/aktuelles_kfz" element={<InfoPage chosenKFZ={chosenKFZ}/>}/>
         <Route path="/listen" element={<Listen/>}/>
-        <Route path="/listen/a-z" element={<AZ/>}/>
+        <Route path="/listen/a-z" element={<AZ allKFZ={allKFZ}/>}/>
         <Route path="/listen/nabu" element={<NaBu/>}/>
         <Route path="/karte" element={<Karte/>}/>
         <Route path="/quiz" element={<Quiz/>}/>
-        <Route path="/quiz/kfz_stla" element={<QuizStLa/>}/>
-        <Route path="/quiz/kfz_bl" element={<QuizBl/>}/>
+        <Route path="/quiz/kfz_stla" element={<QuizStLa allKFZ={allKFZ}/>}/>
+        <Route path="/quiz/kfz_bl" element={<QuizBl allKFZ={allKFZ}/>}/>
 
     </Routes>
 

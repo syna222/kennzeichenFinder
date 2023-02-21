@@ -17,3 +17,12 @@
 #map-container {
   height: 100vh;
 }
+
+
+.frage{
+  margin: 30px;
+}
+
+.antwort{
+  margin: 30px;
+}

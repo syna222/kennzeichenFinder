@@ -3,24 +3,23 @@
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
-export default function InfoPage({chosenKFZ}){
-
-    const longitude = chosenKFZ.Längengrad;        //state vars?
-    const latitude = chosenKFZ.Breitengrad;
+export default function DKarte(){
 
 
 
-    return (
+
+    return(
     <>
-        <h1>{chosenKFZ.Stadt_Ort}</h1>
-        <MapContainer id="map-container" center={[longitude, latitude]} zoom={6} scrollWheelZoom={true}>
+        <h1>Deutschlandkarte (gesehene Kennzeichen)</h1>
+        <MapContainer id="map-container" center={[51.1586258,10.445921]} zoom={6} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[longitude, latitude]}/>
+        {/*<Marker position={[]}/>*/}
       </MapContainer>
-
     </>
     );
 }
+
+

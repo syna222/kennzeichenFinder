@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { NavLink, Link, Routes, Route } from 'react-router-dom';
-import InfoPage from './InfoPage';
+import { Link } from 'react-router-dom';
 
 export default function SearchPage({setChosenKFZ, chosenKFZ}){
 
@@ -23,12 +22,10 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
 
     return(
     <>
-        <input type="text" onChange={handleChange}/>
+        <input id="kennzeichen-suchfeld" type="text" onChange={handleChange}/>
         <input type="checkbox" />
-        {/*make to-Path conditional?? */}
         {/*link to InfoPage...*/}
-        {/*<div id="Ort_Stadt">{changed && <Link className="nav-elem" to="/:kfz">{chosenKFZ.Stadt_Ort}</Link>}</div>     {/*this has to become a link to the info page} */}
-        <div id="Ort_Stadt">{changed && chosenKFZ.Stadt_Ort}</div>
+        <div id="Ort_Stadt">{changed && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>}</div>
         <div id="Landkreis">{changed && chosenKFZ.Landkreis}</div>
         <div id="bundesland">{changed && chosenKFZ.Bundesland}</div>
     </>

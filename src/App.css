@@ -2,6 +2,18 @@
   text-align: center;
 }
 
+.nav-element{
+  margin: 30px;
+}
+
+#kennzeichen-suchfeld{
+  margin: 30px;
+}
+
+.list-element{
+  margin: 30px;
+}
+
 #map-container {
   height: 100vh;
 }

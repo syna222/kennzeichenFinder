@@ -19,7 +19,7 @@ export default function App() {
 
   useEffect(() => {
     axios.get(`https://kennzeichenapi.onrender.com/`)
-        .then(res => {console.log(res.data); setAllKFZ(res.data)})
+        .then(res => {setAllKFZ(res.data)})     //console.log(res.data);
         .catch(err => console.log(err))
         .then(function (json) {
          // always executed
@@ -43,7 +43,7 @@ export default function App() {
         <Route path="/aktuelles_kfz" element={<InfoPage chosenKFZ={chosenKFZ}/>}/>
         <Route path="/listen" element={<Listen/>}/>
         <Route path="/listen/a-z" element={<AZ allKFZ={allKFZ}/>}/>
-        <Route path="/listen/nabu" element={<NaBu/>}/>
+        <Route path="/listen/nabu" element={<NaBu allKFZ={allKFZ}/>}/>
         <Route path="/karte" element={<Karte/>}/>
         <Route path="/quiz" element={<Quiz/>}/>
         <Route path="/quiz/kfz_stla" element={<QuizStLa allKFZ={allKFZ}/>}/>

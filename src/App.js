@@ -43,7 +43,7 @@ export default function App() {
       });
   }, []);
 
-  console.log("TEST aus App.js/ KFZSortedBL is: ", KFZSortedBL);
+  //console.log("TEST aus App.js/ KFZSortedBL is: ", KFZSortedBL);
 
   return (
     <div className="App">

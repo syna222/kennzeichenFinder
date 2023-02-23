@@ -17,16 +17,25 @@ export default function App() {
   const [ chosenKFZ, setChosenKFZ ] = useState();     //das hier in SearchPage setzen und an InfoPage passen
   const [ allKFZ, setAllKFZ ] = useState([]);
 
+  function compareAlphab(a, b){
+    if(a.Kennzeichen < b.Kennzeichen){
+      return -1;
+    }
+    if(a.Kennzeichen > b.Kennzeichen){
+      return 1;
+    }
+    return 0;
+  }
+
   useEffect(() => {
     axios.get(`https://kennzeichenapi.onrender.com/`)
-        .then(res => {setAllKFZ(res.data)})     //console.log(res.data);
+        .then(res => {setAllKFZ(res.data.sort(compareAlphab))})     //console.log(res.data);
         .catch(err => console.log(err))
         .then(function (json) {
          // always executed
         });
 
   }, []);
-
 
 
   return (

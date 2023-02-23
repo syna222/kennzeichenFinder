@@ -16,7 +16,7 @@ export default function App() {
 
   const [ chosenKFZ, setChosenKFZ ] = useState();     //das hier in SearchPage setzen und an InfoPage passen
   const [ allKFZ, setAllKFZ ] = useState([]);         //passed down to AZ component
-  const [ KFZSortedBL, setKFZSortedBL ] = useState(); //sorting by Bundesland to pass down to NaBu component
+  const [ KFZSortedBL, setKFZSortedBL ] = useState([]); //sorting by Bundesland to pass down to NaBu component
 
 
   useEffect(() => {

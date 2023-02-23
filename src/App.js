@@ -15,28 +15,29 @@ import { useEffect, useState } from 'react';
 export default function App() {
 
   const [ chosenKFZ, setChosenKFZ ] = useState();     //das hier in SearchPage setzen und an InfoPage passen
-  const [ allKFZ, setAllKFZ ] = useState([]);
+  const [ allKFZ, setAllKFZ ] = useState([]);         //passed down to AZ component
+  const [ KFZSortedBL, setKFZSortedBL ] = useState(); //sorting by Bundesland to pass down to NaBu component
 
-  function compareAlphab(a, b){
-    if(a.Kennzeichen < b.Kennzeichen){
-      return -1;
-    }
-    if(a.Kennzeichen > b.Kennzeichen){
-      return 1;
-    }
-    return 0;
-  }
 
   useEffect(() => {
-    axios.get(`https://kennzeichenapi.onrender.com/`)
-        .then(res => {setAllKFZ(res.data.sort(compareAlphab))})     //console.log(res.data);
+    //alle Kennzeichen alphabetisch fetchen + als state variable speichern :
+    axios.get(`https://kennzeichenapi.onrender.com/?sortkfz=true`)
+        .then(res => {setAllKFZ(res.data)})     //console.log(res.data);  
         .catch(err => console.log(err))
         .then(function (json) {
          // always executed
         });
-
+    //alle Kennzeichen nach Bundesland (u. innerhalb alphabetisch) fetchen + als state variable speichern:
+    axios.get(`https://kennzeichenapi.onrender.com/?sortkfz=true&sortbu=true`)
+        .then(res => {setKFZSortedBL(res.data)})     //console.log(res.data);  
+        .catch(err => console.log(err))
+        .then(function (json) {
+         // always executed
+        });
   }, []);
 
+
+  console.log("TEST aus App.js/ KFZSortedBL is: ", KFZSortedBL);
 
   return (
     <div className="App">
@@ -52,7 +53,7 @@ export default function App() {
         <Route path="/aktuelles_kfz" element={<InfoPage chosenKFZ={chosenKFZ}/>}/>
         <Route path="/listen" element={<Listen/>}/>
         <Route path="/listen/a-z" element={<AZ allKFZ={allKFZ}/>}/>
-        <Route path="/listen/nabu" element={<NaBu allKFZ={allKFZ}/>}/>
+        <Route path="/listen/nabu" element={<NaBu KFZSortedBL={KFZSortedBL}/>}/>
         <Route path="/karte" element={<Karte/>}/>
         <Route path="/quiz" element={<Quiz/>}/>
         <Route path="/quiz/kfz_stla" element={<QuizStLa allKFZ={allKFZ}/>}/>

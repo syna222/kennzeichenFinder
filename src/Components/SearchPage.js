@@ -27,9 +27,9 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
         <input id="kennzeichen-suchfeld" type="text" onChange={handleChange}/>
         <input type="checkbox" />
         {/*link to InfoPage...*/}
-        <div id="Ort_Stadt">{changed && chosenKFZ && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>}</div>
-        <div id="Landkreis">{changed &&  chosenKFZ && chosenKFZ.Landkreis}</div>
-        <div id="bundesland">{changed &&  chosenKFZ && chosenKFZ.Bundesland}</div>
+        <div id="Ort_Stadt">Stadt/Ort: {changed && chosenKFZ && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>}</div>
+        <div id="Landkreis">Landkreis: {changed &&  chosenKFZ && chosenKFZ.Landkreis}</div>
+        <div id="bundesland">Bundesland: {changed &&  chosenKFZ && chosenKFZ.Bundesland}</div>
     </>
     );
 

@@ -20,6 +20,8 @@ export default function InfoPage({chosenKFZ}){
         />
         <Marker position={[longitude, latitude]}/>
       </MapContainer>
+      <h2>Infos:</h2>
+      <div><a href={chosenKFZ.Wikipedia_URL} target="_blank" rel="noopener noreferrer">Wikipedia</a></div>
 
     </>
     );

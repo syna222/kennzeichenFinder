@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export default function QuizBl({allKFZ}){
+
+    const inputRef = useRef();
 
     const [ randomKFZ, setRandomKFZ ] = useState({});
     const [ bundesland, setBundesland ] = useState();
@@ -14,8 +16,11 @@ export default function QuizBl({allKFZ}){
         const randInd = Math.floor(Math.random() * maxNum);
         setRandomKFZ(allKFZ[randInd]);
         setIsSet(true);
-        //input-feld leeren?:
-        
+        //input-field bei Klick auf "weiter" leeren:
+        if(inputRef.current){
+            inputRef.current.value = "";
+        }
+
     }
 
     useEffect(() => {
@@ -46,9 +51,8 @@ export default function QuizBl({allKFZ}){
     return(
     <>
         <h1>Quiz: Kennzeichen -{'>'} Bundesland</h1>
-        {!isSet && <input type="button" onClick={chooseRandom} value="start"/>}
         {isSet && <div className="frage">{`Zu welchem Bundesland gehört das Kennzeichen ${randomKFZ.Kennzeichen} ?`}</div>}
-        {isSet && <div className="antwort"><input type="text" onChange={handleChange}/></div>}
+        {isSet && <div className="antwort"><input ref={inputRef} type="text" onChange={handleChange}/></div>}
         {isSet && <input type="button" onClick={prüfen} value="prüfen"/>}
         {isSet && <input type="button" onClick={chooseRandom} value="weiter"/>}
     </>

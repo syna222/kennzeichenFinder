@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 export default function QuizBl({allKFZ}){
 
-    const [ randomKFZ, setRandomKFZ ] = useState();
+    const [ randomKFZ, setRandomKFZ ] = useState({});
     const [ bundesland, setBundesland ] = useState();
     const [isSet, setIsSet ] = useState(false);     //for conditional rendering of randomKFZ
     const [ userInput, setUserInput ] = useState();     //für aktuellen User-Input, dieser wird erst bei Klick auf "prüfen" als Antwort gesetzt
@@ -14,28 +14,33 @@ export default function QuizBl({allKFZ}){
         const randInd = Math.floor(Math.random() * maxNum);
         setRandomKFZ(allKFZ[randInd]);
         setIsSet(true);
-
+        //input-feld leeren?:
+        
     }
+
+    useEffect(() => {
+        chooseRandom();
+    },[]);
+
+    useEffect(() =>  {
+        //Lösung zur Frage setzen:
+        setBundesland(randomKFZ.Bundesland);
+    }, [randomKFZ])
+
+    useEffect(() => {
+        //userInput als definitive Antwort setzen:
+        setUserAntwort(userInput);
+    }, [userInput])
+
 
     function handleChange(e){
-        setUserInput(e.target.value)
-    }
-
-    function prüfen_zwei(){
-        if(userAntwort === bundesland){
-            alert("Korrekte Antwort!");
-        }
+        setUserInput(e.target.value);
     }
 
     function prüfen(){
-        //userInput als Antwort setzen:
-        setUserAntwort(userInput);
-        //richtige Antwort setzen:
-        const bundesland = randomKFZ.Bundesland;
-        setBundesland(bundesland);
-        //hier abgleich mit user-antwort! auslagern in eigene funktion, weil userAntwort noch nicht neu gesetzt (zu lahm)
-        prüfen_zwei();
-        
+        if(userAntwort === bundesland){
+            alert("Korrekte Antwort!");
+        }
     }
 
     return(

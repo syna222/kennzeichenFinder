@@ -46,6 +46,12 @@ export default function QuizBl({allKFZ}){
         if(userAntwort === bundesland){
             alert("Korrekte Antwort!");
         }
+        else{
+            alert("Versuche es noch einmal!");
+            if(inputRef.current){
+                inputRef.current.value = "";
+            }
+        }
     }
 
     return(

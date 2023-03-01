@@ -40,7 +40,7 @@ export default function App() {
   useEffect(() => {
     //alle Kennzeichen alphabetisch fetchen + als state variable speichern :
     axios
-      .get(`https://kennzeichenapi.onrender.com/?sortkfz=true`)
+      .get(`https://kennzeichenapi.onrender.com/kennzeichen/?sortkfz=true`)
       .then((res) => {
         setAllKFZ(res.data);
       }) //console.log(res.data);
@@ -53,7 +53,7 @@ export default function App() {
   useEffect(() => {
     //alle Kennzeichen nach Bundesland (u. innerhalb alphabetisch) fetchen + als state variable speichern:
     axios
-      .get(`https://kennzeichenapi.onrender.com/?sortkfz=true&sortbu=true`)
+      .get(`https://kennzeichenapi.onrender.com/kennzeichen/?sortkfz=true&sortbu=true`)
       .then((res) => {
         setKFZSortedBL(res.data);
       }) //console.log(res.data);
@@ -70,7 +70,7 @@ export default function App() {
       //console.log("bundesland ist:", bundesland);
       //console.log("KFZSortedBL ist:", KFZSortedBL)
       const results = KFZSortedBL.filter((obj) => obj.Bundesland === bundesland);
-      console.log(results);
+      //console.log(results);
       //bu.kfzs = results; das funktioniert nicht, weil bu.kfzs nicht der tatsächliche Objekt-Teil ist!!
       listeBundesländer[i].kfzs = results;
     });

@@ -11,13 +11,13 @@ export default function InfoPage({chosenKFZ}){
     const latitude = chosenKFZ.Breitengrad;
     const [ fläche, setFläche ] = useState();
     const [ einwohner, setEinwohner ] = useState();
+    const [ bildLink, setBildLink ] = useState();
 
     useEffect(() => { 
-      //console.log(chosenKFZ.Stadt_Ort);
-      //const ortsname = "Wolfratshausen";
       axios
       .get(`https://de.wikipedia.org/w/api.php?action=parse&page=${chosenKFZ.Stadt_Ort}&format=json&origin=*`)
       .then((res) => {
+        console.log(res.data);
         const baseText = res.data.parse.text["*"];
         const regexFläche = /Fläche<\/a>:\s*<\/td>\s*<td>([0-9]{0,5}\.*[0-9]{1,5}\,[0-9]{0,5})/;
         const regexEinwohner = /Einwohner(?:<\/a>)?:\\*n*\s*<\/td>\s?\\*n*<td(?: style="line-height: 1.2em;")?>(\d{0,4}(?:\.\d{0,3})?(?:\.\d{0,3})?)/;
@@ -39,11 +39,28 @@ export default function InfoPage({chosenKFZ}){
       .catch((err) => console.log(err))
     }, [chosenKFZ])
 
+    //zweites UseEffect für Bild (falls vorhanden - check!):
+    useEffect(() => {
+      axios
+      .get(`https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${chosenKFZ.Stadt_Ort}&origin=*`)
+      .then((res) => {
+        const pagesObj = res.data.query.pages;
+        console.log(pagesObj);
+        const pageNum = Object.keys(pagesObj)[0];
+        console.log(pageNum);
+        const link = pagesObj[pageNum].original.source;
+        console.log(link);
+        setBildLink(link);
+        
+      })
+      .catch((err) => console.log(err))
+    }, []);
+
 
 
     return (
     <>
-        <h1>{chosenKFZ.Stadt_Ort}</h1>
+        <h1>{chosenKFZ && chosenKFZ.Stadt_Ort}</h1>
         <MapContainer id="map-container" center={[longitude, latitude]} zoom={6} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -52,8 +69,11 @@ export default function InfoPage({chosenKFZ}){
         <Marker position={[longitude, latitude]}/>
       </MapContainer>
       <h2>Infos:</h2>
-      {fläche && <div>Fläche: {fläche} km^2</div>}
+      {fläche && <div>Fläche: {fläche} km<sup>2</sup></div>}
       {einwohner && <div>Einwohner: {einwohner}</div>}
+      {bildLink && <img src={bildLink} alt="kennzeichen_image"/>}
+      {chosenKFZ && <div>Landkreis: {chosenKFZ.Landkreis}</div>}
+      {chosenKFZ && <div>Bundesland: {chosenKFZ.Bundesland}</div>}
       <div><a href={chosenKFZ.Wikipedia_URL} target="_blank" rel="noopener noreferrer">Wikipedia</a></div>
 
 

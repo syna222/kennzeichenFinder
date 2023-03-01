@@ -9,7 +9,7 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
     function handleChange(e){
         //fetch from API:
         const input = e.target.value;
-        axios.get(`https://kennzeichenapi.onrender.com/${input}`)
+        axios.get(`https://kennzeichenapi.onrender.com/kennzeichen/${input}`)
         .then(res => {console.log(res.data[0]); 
             setChosenKFZ(res.data[0]); 
             setChanged(true);})

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function SearchPage({setChosenKFZ, chosenKFZ}){
@@ -8,36 +8,34 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
 
     const [ changed, setChanged ] = useState(false);     //for conditional rendering
     const [ checked, setChecked ] = useState(false); 
-    const [ geseheneKFZ, setGeseheneKFZ ] = useState([]);
+    const [ geseheneKFZ, setGeseheneKFZ ] = useState();     //mit [] initialisieren?
 
-    function helper_checkKennzeichenForUser(gesehene_kfz){
-        let isInList = false;
-        //check if chosenKFZ._id in res.data.Gesehene_Kennzeichen (only if chosenKFZ is set yet!):
-        if(chosenKFZ){      //HÄNGT ES HIER??!
-        // console.log('id',chosenKFZ._id);
-            const doesExist = (kfz) => kfz._id === chosenKFZ._id;
-            console.log("test, gesehene_kfz ist:", gesehene_kfz) //geht rein, aber erkennt nicht.
-            isInList = gesehene_kfz.some(doesExist);
-            console.log("isInList from checkKennzeichenForUser(): ", isInList);
-            }
-        return isInList;
-    }
-
-    function checkKennzeichenForUser(){
-        //get alle Gesehene_Kennzeichen from User, dann res.data.Gesehene_Kennzeichen durchlaufen + checken ob chosenKFZ._id drin ist
-        let gesehene_kfz = [];
+    //direkt am Anfang alle gesehenen Kfzs des Users fetchen + in state var packen:
+    useEffect(() => {
         //ACHTUNG! userid wird hier hardgecodet auf Viola! später ändern!
         const user_id = "63ff6f9c858ac063472de5b7"
         const URL = `https://kennzeichenapi.onrender.com/users/${user_id}`;
         axios.get(URL)
             .then(res => {
-                gesehene_kfz = res.data.Gesehene_Kennzeichen;
-                console.log("test, gesehene_kfz nach fetch:", gesehene_kfz); 
+                setGeseheneKFZ(res.data.Gesehene_Kennzeichen);
             })
             .catch(err => console.log(err))
+    }, []);
 
-        //check if chosenKFZ._id in res.data.Gesehene_Kennzeichen (only if chosenKFZ is set yet!):
-        const isInList = helper_checkKennzeichenForUser(gesehene_kfz)
+
+
+    function checkKennzeichenForUser(){
+        let isInList = false;
+        //check if chosenKFZ._id in res.data.Gesehene_Kennzeichen/geseheneKFZ (only if chosenKFZ is set yet!):
+        if(chosenKFZ && geseheneKFZ){
+            console.log("test aus checkKennzeichenForUser");
+            const doesExist = (kfz) => kfz._id === chosenKFZ._id;
+            console.log("chosenKFZ ist:", chosenKFZ);       //undefined obwohl in Komponente hier nicht undefined (in return wird auf chosenKFZ zugegriffen und korrekt ausgegeben)
+            console.log("chosenKFZ._id ist:", chosenKFZ._id);   //undefined
+            console.log("test, checkedKFZ ist:", geseheneKFZ);      //geht rein, aber erkennt nicht.
+            isInList = geseheneKFZ.some(doesExist);
+            console.log("isInList ist gerade:", isInList);
+        }
         return isInList;
     }
 
@@ -51,11 +49,14 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
                 //console.log(res.data[0]); 
                 setChosenKFZ(res.data[0]); 
                 setChanged(true);
-                //hier muss checkbox gesetzt werden, falls chosenKFZ._id schon in user's Gesehene_Kennzeichen:
-                const isInList = checkKennzeichenForUser();
-                console.log("ist schon in Gesehene_Kennzeichen des Users:", isInList);
             })
             .catch(err => console.log(err))
+            //hier muss checkbox gesetzt werden, falls chosenKFZ._id schon in user's Gesehene_Kennzeichen:
+
+            //DAS FOLGENDE LÄUFT ZU FRÜH - BEVOR FETCH OBEN DRÜBER ABGESCHLOSSEN IST.
+            const isInList = checkKennzeichenForUser();
+            console.log("ist schon in Gesehene_Kennzeichen des Users:", isInList);
+
         }
         else{
             setChanged(false);
@@ -64,6 +65,9 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
             checkboxRef.current.checked = false;
         }
     }
+
+
+
 
     function handleCheck(){
         //wird zu seinem Gegenteil, damit bei setChecked(true) und input defined das Kfz gespeichert wird...

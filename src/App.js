@@ -13,7 +13,7 @@ import { NavLink, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function App() {
-  const [ chosenKFZ, setChosenKFZ ] = useState([]); //das hier in SearchPage setzen und an InfoPage passen
+  const [ chosenKFZ, setChosenKFZ ] = useState(); //das hier in SearchPage setzen und an InfoPage passen  //mit [] initialisieren rausgenommen?
   const [ allKFZ, setAllKFZ ] = useState([]); //passed down to AZ component
   const [ KFZSortedBL, setKFZSortedBL ] = useState([]); //sorting by Bundesland to pass down to NaBu component
   const [ bundesländer, setBundesländer ] = useState([]);

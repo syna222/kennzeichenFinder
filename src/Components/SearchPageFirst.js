@@ -4,20 +4,22 @@ import { Link } from 'react-router-dom';
 
 export default function SearchPage({setChosenKFZ, chosenKFZ}){
 
+    console.log('chosenkfz', chosenKFZ)
+
     const checkboxRef = useRef();
 
     const [ changed, setChanged ] = useState(false);     //for conditional rendering
     const [ checked, setChecked ] = useState(false); 
-    const [ geseheneKFZ, setGeseheneKFZ ] = useState([]);
+    const [ checkedKFZ, setCheckedKFZ ] = useState([]);
 
-    function helper_checkKennzeichenForUser(gesehene_kfz){
+    function helper_checkKennzeichenForUser(){
         let isInList = false;
         //check if chosenKFZ._id in res.data.Gesehene_Kennzeichen (only if chosenKFZ is set yet!):
         if(chosenKFZ){      //HÄNGT ES HIER??!
         // console.log('id',chosenKFZ._id);
             const doesExist = (kfz) => kfz._id === chosenKFZ._id;
-            console.log("test, gesehene_kfz ist:", gesehene_kfz) //geht rein, aber erkennt nicht.
-            isInList = gesehene_kfz.some(doesExist);
+            console.log("test, checkedKFZ ist:", checkedKFZ) //geht rein, aber erkennt nicht.
+            isInList = checkedKFZ.some(doesExist);
             console.log("isInList from checkKennzeichenForUser(): ", isInList);
             }
         return isInList;
@@ -32,14 +34,19 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
         axios.get(URL)
             .then(res => {
                 gesehene_kfz = res.data.Gesehene_Kennzeichen;
-                console.log("test, gesehene_kfz nach fetch:", gesehene_kfz); 
+                setCheckedKFZ(gesehene_kfz);
+                console.log("test, gesehene kfz nach fetch in checkKennzeichenForUser()", gesehene_kfz); 
             })
             .catch(err => console.log(err))
 
         //check if chosenKFZ._id in res.data.Gesehene_Kennzeichen (only if chosenKFZ is set yet!):
-        const isInList = helper_checkKennzeichenForUser(gesehene_kfz)
+        const isInList = helper_checkKennzeichenForUser(checkedKFZ)
         return isInList;
+
+
     }
+
+    console.log('id',chosenKFZ._id);
 
     function handleChange(e){
         //fetch from API:

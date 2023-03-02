@@ -5,7 +5,7 @@ import Listen from "./Components/Listen";
 import AZ from "./Components/AZ";
 import NaBu from "./Components/NaBu";
 import SchoGe from "./Components/SchoGe";
-import Karte from "./Components/DKarte";
+import DKarte from "./Components/DKarte";
 import Quiz from "./Components/Quiz";
 import QuizStLa from "./Components/QuizStLa";
 import QuizBl from "./Components/QuizBl";
@@ -18,7 +18,7 @@ export default function App() {
   const [ allKFZ, setAllKFZ ] = useState([]); //passed down to AZ component
   const [ KFZSortedBL, setKFZSortedBL ] = useState([]); //sorting by Bundesland to pass down to NaBu component
   const [ bundesländer, setBundesländer ] = useState([]);
-  const [ geseheneKFZ, setGeseheneKFZ ] = useState(); //passed down to SchoGe component
+  const [ geseheneKFZ, setGeseheneKFZ ] = useState([]); //passed down to SchoGe component
 
   let listeBundesländer = [
     { name: "Baden-Württemberg", kfzs: [] },
@@ -125,7 +125,7 @@ export default function App() {
         <Route path="/listen/a-z" element={<AZ allKFZ={allKFZ} />} />
         <Route path="/listen/nabu" element={<NaBu bundesländer={bundesländer} />}/>
         <Route path="/listen/schoge" element={<SchoGe geseheneKFZ={geseheneKFZ} geseheneCount={geseheneKFZ.length} gesamtCount={allKFZ.length}/>} />
-        <Route path="/karte" element={<Karte />} />
+        <Route path="/karte" element={<DKarte geseheneKFZ={geseheneKFZ}/>} />
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/quiz/kfz_stla" element={<QuizStLa allKFZ={allKFZ} />} />
         <Route path="/quiz/kfz_bl" element={<QuizBl allKFZ={allKFZ} />} />

@@ -10,27 +10,37 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
 
     const [ changed, setChanged ] = useState(false);     //for conditional rendering
     const [ checked, setChecked ] = useState(false); 
+    const [ checkedKFZ, setCheckedKFZ ] = useState([]);
+
+    function helper_checkKennzeichenForUser(){
+        let isInList = false;
+        //check if chosenKFZ._id in res.data.Gesehene_Kennzeichen (only if chosenKFZ is set yet!):
+        if(chosenKFZ){      //HÄNGT ES HIER??!
+        // console.log('id',chosenKFZ._id);
+            const doesExist = (kfz) => kfz._id === chosenKFZ._id;
+            console.log("test, checkedKFZ ist:", checkedKFZ) //geht rein, aber erkennt nicht.
+            isInList = checkedKFZ.some(doesExist);
+            console.log("isInList from checkKennzeichenForUser(): ", isInList);
+            }
+        return isInList;
+    }
 
     function checkKennzeichenForUser(){
         //get alle Gesehene_Kennzeichen from User, dann res.data.Gesehene_Kennzeichen durchlaufen + checken ob chosenKFZ._id drin ist
         let gesehene_kfz = [];
-        let isInList = false;
         //ACHTUNG! userid wird hier hardgecodet auf Viola! später ändern!
         const user_id = "63ff6f9c858ac063472de5b7"
         const URL = `https://kennzeichenapi.onrender.com/users/${user_id}`;
         axios.get(URL)
             .then(res => {
                 gesehene_kfz = res.data.Gesehene_Kennzeichen;
-                console.log(gesehene_kfz); 
+                setCheckedKFZ(gesehene_kfz);
+                //console.log(gesehene_kfz); 
             })
             .catch(err => console.log(err))
+
         //check if chosenKFZ._id in res.data.Gesehene_Kennzeichen (only if chosenKFZ is set yet!):
-        if(chosenKFZ){      //HÄNGT ES HIER??!
-            // console.log('id',chosenKFZ._id);
-            const doesExist = (kfz) => kfz._id === chosenKFZ._id;
-            isInList = gesehene_kfz.some(doesExist);
-            console.log("isInList from checkKennzeichenForUser(): ", isInList);
-        }
+        const isInList = helper_checkKennzeichenForUser(checkedKFZ)
         return isInList;
 
 

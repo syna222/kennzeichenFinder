@@ -8,7 +8,8 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
 
     const [ changed, setChanged ] = useState(false);     //for conditional rendering
     const [ checked, setChecked ] = useState(false); 
-    const [ geseheneKFZ, setGeseheneKFZ ] = useState();     //mit [] initialisieren?
+    const [ geseheneKFZ, setGeseheneKFZ ] = useState([]);     //mit [] initialisieren?
+    const [ readyToCheck, setReadyToCheck ] = useState(false);
 
     //direkt am Anfang alle gesehenen Kfzs des Users fetchen + in state var packen:
     useEffect(() => {
@@ -53,7 +54,9 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
             .catch(err => console.log(err))
             //hier muss checkbox gesetzt werden, falls chosenKFZ._id schon in user's Gesehene_Kennzeichen:
 
-            //DAS FOLGENDE LÄUFT ZU FRÜH - BEVOR FETCH OBEN DRÜBER ABGESCHLOSSEN IST.
+            //DAS FOLGENDE LÄUFT ZU FRÜH - BEVOR FETCH OBEN DRÜBER ABGESCHLOSSEN IST. - evtl. hier neuen useEffect() triggern?
+            
+            
             const isInList = checkKennzeichenForUser();
             console.log("ist schon in Gesehene_Kennzeichen des Users:", isInList);
 
@@ -121,6 +124,7 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
     <>
         <input id="kennzeichen-suchfeld" type="text" onChange={handleChange}/>
         <input ref={checkboxRef} type="checkbox" onChange={handleCheck} />
+        <div>changed: {changed.toString()}</div>
         <div id="Ort_Stadt">Stadt/Ort: {changed && chosenKFZ && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>}</div>
         <div id="Landkreis">Landkreis: {changed &&  chosenKFZ && chosenKFZ.Landkreis}</div>
         <div id="bundesland">Bundesland: {changed &&  chosenKFZ && chosenKFZ.Bundesland}</div>

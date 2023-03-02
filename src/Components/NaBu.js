@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 export default function NaBu({ bundesländer }) {
 
-  console.log("bundesländer", bundesländer);
+  //console.log("bundesländer", bundesländer);
 
   return (
     <>

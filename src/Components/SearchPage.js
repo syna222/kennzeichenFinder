@@ -114,17 +114,25 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
         }
 
 
-
     }
+  }
 
-    return(
+  return (
     <>
-        <input id="kennzeichen-suchfeld" type="text" onChange={handleChange}/>
-        <input ref={checkboxRef} type="checkbox" onChange={handleCheck} />
-        <div id="Ort_Stadt">Stadt/Ort: {changed && chosenKFZ && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>}</div>
-        <div id="Landkreis">Landkreis: {changed &&  chosenKFZ && chosenKFZ.Landkreis}</div>
-        <div id="bundesland">Bundesland: {changed &&  chosenKFZ && chosenKFZ.Bundesland}</div>
+      <input id="kennzeichen-suchfeld" type="text" onChange={handleChange} />
+      <input ref={checkboxRef} type="checkbox" onChange={handleCheck} />
+      <div id="Ort_Stadt">
+        Stadt/Ort:{" "}
+        {changed && chosenKFZ && (
+          <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>
+        )}
+      </div>
+      <div id="Landkreis">
+        Landkreis: {changed && chosenKFZ && chosenKFZ.Landkreis}
+      </div>
+      <div id="bundesland">
+        Bundesland: {changed && chosenKFZ && chosenKFZ.Bundesland}
+      </div>
     </>
-    );
-
+  );
 }

@@ -16,7 +16,7 @@ export default function SignUp(){
         //console.log("userdaten:", userName, email, passwort)
         //console.log("handleClick funktioniert")
         //scheiße an backend senden:
-        const URL = `http://localhost:8080/users`;  //http://localhost:8080/users  //https://kennzeichenapi.onrender.com/users
+        const URL = `https://kennzeichenapi.onrender.com/users`;  //http://localhost:8080/users  //https://kennzeichenapi.onrender.com/users
         axios.post(URL, {
             Username: userName,
             Email: email,

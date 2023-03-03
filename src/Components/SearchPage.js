@@ -118,7 +118,7 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
 
 
     }
-  }
+
 
   return (
     <>

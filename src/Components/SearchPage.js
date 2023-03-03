@@ -117,10 +117,10 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
         }
 
 
-
     }
+  }
 
-    return(
+  return (
     <>
         <input id="kennzeichen-suchfeld" type="text" onChange={handleChange}/>
         <input ref={checkboxRef} type="checkbox" onChange={handleCheck} />
@@ -129,6 +129,5 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
         <div id="Landkreis">Landkreis: {changed &&  chosenKFZ && chosenKFZ.Landkreis}</div>
         <div id="bundesland">Bundesland: {changed &&  chosenKFZ && chosenKFZ.Bundesland}</div>
     </>
-    );
-
+  );
 }

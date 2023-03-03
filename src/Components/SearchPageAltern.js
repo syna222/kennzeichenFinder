@@ -52,8 +52,6 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
             })
             .catch(err => console.log(err))
             //hier muss checkbox gesetzt werden, falls chosenKFZ._id schon in user's Gesehene_Kennzeichen:
-
-            //DAS FOLGENDE LÄUFT ZU FRÜH - BEVOR FETCH OBEN DRÜBER ABGESCHLOSSEN IST.
             const isInList = checkKennzeichenForUser();
             console.log("ist schon in Gesehene_Kennzeichen des Users:", isInList);
 
@@ -114,25 +112,17 @@ export default function SearchPage({setChosenKFZ, chosenKFZ}){
         }
 
 
-    }
-  }
 
-  return (
+    }
+
+    return(
     <>
-      <input id="kennzeichen-suchfeld" type="text" onChange={handleChange} />
-      <input ref={checkboxRef} type="checkbox" onChange={handleCheck} />
-      <div id="Ort_Stadt">
-        Stadt/Ort:{" "}
-        {changed && chosenKFZ && (
-          <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>
-        )}
-      </div>
-      <div id="Landkreis">
-        Landkreis: {changed && chosenKFZ && chosenKFZ.Landkreis}
-      </div>
-      <div id="bundesland">
-        Bundesland: {changed && chosenKFZ && chosenKFZ.Bundesland}
-      </div>
+        <input id="kennzeichen-suchfeld" type="text" onChange={handleChange}/>
+        <input ref={checkboxRef} type="checkbox" onChange={handleCheck} />
+        <div id="Ort_Stadt">Stadt/Ort: {changed && chosenKFZ && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>}</div>
+        <div id="Landkreis">Landkreis: {changed &&  chosenKFZ && chosenKFZ.Landkreis}</div>
+        <div id="bundesland">Bundesland: {changed &&  chosenKFZ && chosenKFZ.Bundesland}</div>
     </>
-  );
+    );
+
 }

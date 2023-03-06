@@ -8,6 +8,7 @@ export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
   const [userKennzeichen, setUserKennzeichen] = useState([]);
   const [input, setInput] = useState("");
   const [match, setMatch] = useState(false);
+  const [message, setMessage ] = useState("");
 
   //const user_id = "63ff6f9c858ac063472de5b7";
  const URL = `https://kennzeichenapi.onrender.com/users/${user._id}`;   //stattdessen hier dann user._id
@@ -35,7 +36,15 @@ export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
           const res = await axios.get(
             `https://kennzeichenapi.onrender.com/kennzeichen/${input}`
           );
-          setChosenKFZ(res.data[0]);
+          if(res.data.length){
+            setChosenKFZ(res.data[0]);
+            setMessage("");
+          }
+          else{
+            //set message as state var:
+            setChosenKFZ("");
+            setMessage("no match!");
+          }
         } catch (err) {
           console.log(err);
         }
@@ -99,26 +108,12 @@ export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
 
   return (
     <>
-      <input
-        id="kennzeichen-suchfeld"
-        type="text"
-        onChange={(e) => {
-          setInput(e.target.value);
-        }}
-        value={input}
-      />
-      <input
-        ref={checkboxRef}
-        type="checkbox"
-        onChange={handleCheck}
-        checked={match}
-      />
-      <div id="Ort_Stadt">
-        Stadt/Ort:{" "}
-        {chosenKFZ && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>}
-      </div>
+      <input id="kennzeichen-suchfeld" type="text" onChange={(e) => { setInput(e.target.value); }} value={input} />
+      <input ref={checkboxRef} type="checkbox" onChange={handleCheck} checked={match} />
+      <div id="Ort_Stadt"> Stadt/Ort:{" "} {chosenKFZ && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>} </div>
       <div id="Landkreis">Landkreis: {chosenKFZ && chosenKFZ.Landkreis}</div>
       <div id="bundesland">Bundesland: {chosenKFZ && chosenKFZ.Bundesland}</div>
+      {message && <div>{message}</div>}
     </>
   );
 }

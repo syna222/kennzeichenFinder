@@ -2,8 +2,21 @@
   text-align: center;
 }
 
+#navbar{
+  background-color: #004593;
+  
+}
+
 .nav-element{
+  color: #F3E601;
   margin: 30px;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+#suchfeld-container{
+  background-repeat: no-repeat;
+  background-image: url(/public/kfz_2.jpg);
 }
 
 #kennzeichen-suchfeld{

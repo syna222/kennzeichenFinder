@@ -139,7 +139,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <nav>
+      <nav id="navbar">
         <NavLink className="nav-element" to="/">
           HOME
         </NavLink>

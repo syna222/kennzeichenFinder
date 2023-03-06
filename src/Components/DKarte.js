@@ -1,11 +1,9 @@
 ////DOC: https://react-leaflet.js.org/docs/start-installation/ + MapContainer has to have predefined height (vh or px)!
 //Don't forget to add (to index.html): <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"  integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="  crossorigin=""/> 
 
-import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Tooltip } from 'react-leaflet';
 
 export default function DKarte({geseheneKFZ}){
-
-
 
 
     return(

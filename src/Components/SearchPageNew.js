@@ -2,15 +2,15 @@ import axios from "axios";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-export default function SearchPage({ setChosenKFZ, chosenKFZ }) {
+export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
   const checkboxRef = useRef();
 
   const [userKennzeichen, setUserKennzeichen] = useState([]);
   const [input, setInput] = useState("");
   const [match, setMatch] = useState(false);
 
-  const user_id = "63ff6f9c858ac063472de5b7";
-  const URL = `https://kennzeichenapi.onrender.com/users/${user_id}`;
+  //const user_id = "63ff6f9c858ac063472de5b7";
+ const URL = `https://kennzeichenapi.onrender.com/users/${user._id}`;   //stattdessen hier dann user._id
 
   //////////1. bereits gesehene Kennzeichen des Users holen, auf initial Render//////////
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function SearchPage({ setChosenKFZ, chosenKFZ }) {
     };
     checkKennzeichen();
     //hört auch auf match, damit wir bei Match-State Änderung den userKennzeichen state aktualisieren
-  }, [match]);
+  }, [match, user]);
   console.log("1. Users gesehene Kennzeichen sind:", userKennzeichen);
 
   //////////2. Wenn Userinput => Infos fetchen//////////könnte man auch mit handleChange zusammenführen, dann auf Async. achten

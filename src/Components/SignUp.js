@@ -11,12 +11,11 @@ export default function SignUp(){
     const [ email, setEmail ] = useState("");
     const [ passwort, setPasswort ] = useState("");
 
-    function handleClick (e){
+    function handleSubmit (e){
         e.preventDefault();
         //console.log("userdaten:", userName, email, passwort)
-        //console.log("handleClick funktioniert")
-        //scheiße an backend senden:
-        const URL = `https://kennzeichenapi.onrender.com/users`;  //http://localhost:8080/users  //https://kennzeichenapi.onrender.com/users
+        //an backend senden:
+        const URL = `https://kennzeichenapi.onrender.com/users`;
         axios.post(URL, {
             Username: userName,
             Email: email,
@@ -24,7 +23,7 @@ export default function SignUp(){
           })
           .then(function (response) {
             console.log(response);
-            //console.log("userdaten aus handleClick():", userName, email, passwort)
+            //console.log("userdaten aus handleSubmit():", userName, email, passwort)
           })
           .catch(function (error) {
             console.log(error.response.data);
@@ -38,7 +37,7 @@ export default function SignUp(){
 
     return(
     <>
-        <form>
+        <form onSubmit={handleSubmit}>
             <section>
                 <label htmlFor="username">Username: </label>
                 <input ref={inputUsernameRef} type="text" id="username" name="username" onChange={(e) => setUsername(e.target.value)}/>
@@ -51,7 +50,7 @@ export default function SignUp(){
                 <label htmlFor="passwort">Passwort: </label>
                 <input ref={inputPasswortRef} type="text" id="passwort" name="passwort" onChange={(e) => setPasswort(e.target.value)}/>
             </section>
-            <input type="submit" value="Account erstellen" onClick={handleClick}/>
+            <input type="submit" value="Account erstellen"/>
         </form>
     </>
     );

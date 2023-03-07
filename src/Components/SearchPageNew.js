@@ -107,13 +107,26 @@ export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
   };
 
   return (
-    <>
-      <input id="kennzeichen-suchfeld" type="text" onChange={(e) => { setInput(e.target.value); }} value={input} />
-      <input ref={checkboxRef} type="checkbox" onChange={handleCheck} checked={match} />
-      <div id="Ort_Stadt"> Stadt/Ort:{" "} {chosenKFZ && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>} </div>
-      <div id="Landkreis">Landkreis: {chosenKFZ && chosenKFZ.Landkreis}</div>
-      <div id="bundesland">Bundesland: {chosenKFZ && chosenKFZ.Bundesland}</div>
-      {message && <div>{message}</div>}
-    </>
+    <div id="searchpage-div">
+      <div id="suchfeld-container">
+          <div className="outer-div">
+          </div>
+          <div className="inner-div">
+              <input id="kennzeichen-suchfeld" type="text" onChange={(e) => { setInput(e.target.value); }} value={input} />
+          </div>
+          <div className="outer-div">
+              <input id="kennzeichen-checkbox" ref={checkboxRef} type="checkbox" onChange={handleCheck} checked={match} />
+          </div>
+      </div>
+
+
+
+      <div id="searchpage-info">
+        <div id="Ort_Stadt"> Stadt/Ort:{" "} {chosenKFZ && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>} </div>
+        <div id="Landkreis">Landkreis: {chosenKFZ && chosenKFZ.Landkreis}</div>
+        <div id="bundesland">Bundesland: {chosenKFZ && chosenKFZ.Bundesland}</div>
+        {message && <div>{message}</div>}
+      </div>
+    </div>
   );
 }

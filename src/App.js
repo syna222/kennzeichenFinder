@@ -6,7 +6,6 @@ import Home from "./Components/Home";
 import InfoPage from "./Components/InfoPage";
 import Listen from "./Components/Listen";
 import Login from "./Components/Login";
-import Logout from "./Components/Logout";
 import NaBu from "./Components/NaBu";
 import SchoGe from "./Components/SchoGe";
 import SearchPage from "./Components/SearchPageNew";
@@ -14,7 +13,7 @@ import SignUp from "./Components/SignUp";
 import Quiz from "./Components/Quiz";
 import QuizStLa from "./Components/QuizStLa";
 import QuizBl from "./Components/QuizBl";
-import { NavLink, Routes, Route } from "react-router-dom";
+import { NavLink, Routes, Route, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function App() {
@@ -135,6 +134,21 @@ export default function App() {
   //   console.log("user id ist:", user._id);
   //   console.log("user gesehene kfz sind:", user.Gesehene_Kennzeichen);
   // }
+  const navigate = useNavigate();
+
+  function handleClick(e){
+      e.preventDefault();
+      if(loggedIn){           //überflüssig?
+          //token aus LocalStorage nehmen:
+          localStorage.removeItem("authtoken"); 
+          localStorage.removeItem("user");
+          //login auf false:
+          setLoggedIn(false);
+          //muss setToken auf undefined?
+          setToken();
+          navigate("/");
+      }
+  }
   
 
   return (
@@ -163,9 +177,9 @@ export default function App() {
         <NavLink className="nav-element" to="/quiz">
           QUIZ
         </NavLink>
-        <NavLink className="nav-element" to="/logout">
+        <button id="logout" className="nav-element" onClick={handleClick}>
           LOGOUT 
-        </NavLink>
+        </button>
         </>}
       </nav>
 
@@ -182,10 +196,7 @@ export default function App() {
         <Route path="/karte" element={<DKarte geseheneKFZ={geseheneKFZ}/>} />
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/quiz/kfz_stla" element={<QuizStLa allKFZ={allKFZ} />} />
-        <Route path="/quiz/kfz_bl" element={<QuizBl allKFZ={allKFZ} />} />
-        <Route path="/logout" element={<Logout loggedIn={loggedIn} setLoggedIn={setLoggedIn} setToken={setToken}/>} /></>}
-
-
+        <Route path="/quiz/kfz_bl" element={<QuizBl allKFZ={allKFZ} />} /></>}
       </Routes>
     </div>
   );

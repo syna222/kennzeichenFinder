@@ -1,9 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
 export default function Login({setUser, loggedIn, setLoggedIn, setToken}){
 
+    const navigate = useNavigate();
     const inputEmailRef = useRef();
     const inputPasswortRef = useRef();
 
@@ -31,6 +33,7 @@ export default function Login({setUser, loggedIn, setLoggedIn, setToken}){
             setLoggedIn(true);
             //setUser:
             setUser(response.data.user);
+            navigate("/");
           })
           .catch(function (error) {
             console.log(error.response.data);

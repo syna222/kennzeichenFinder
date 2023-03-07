@@ -1,7 +1,8 @@
-
+import { useNavigate } from "react-router-dom";
 
 export default function Logout({loggedIn, setLoggedIn, setToken}){
 
+    const navigate = useNavigate();
 
     function handleClick(e){
         e.preventDefault();
@@ -13,9 +14,8 @@ export default function Logout({loggedIn, setLoggedIn, setToken}){
             setLoggedIn(false);
             //muss setToken auf undefined?
             setToken();
+            navigate("/");
         }
-
-
     }
 
 

@@ -1,36 +1,126 @@
+@import url('https://fonts.googleapis.com/css?family=Days+One');
+
 .App {
   text-align: center;
+  font-family: "Days One", sans-serif;
 }
 
 #navbar{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   background-color: #004593;
   
 }
 
 .nav-element{
   color: #F3E601;
-  margin: 30px;
+  margin: 20px;
   font-size: 1.5rem;
   text-decoration: none;
 }
 
+.active{
+  color: white;
+  font-weight: bold;
+}
+
+/*---- HOME ----*/
+
+h1#welcome{
+  color: white;
+  background-color: #004593;
+  margin: 0;
+  padding: 0;
+}
+
+#home-container{
+  height: 100vh;
+  background-color: #004593;
+}
+
+#home-image{
+  width: 60%;
+}
+
+/*---- SEARCH PAGE ----*/
+
+#searchpage-div{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: 2px solid red;
+}
+
 #suchfeld-container{
-  background-repeat: no-repeat;
-  background-image: url(/public/kfz_2.jpg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+  margin-bottom: 2.5%;
+  height: 250px;
+  border: 2px solid black;
+
+}
+
+.inner-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url(/public/kfz_2.jpg) no-repeat center;
+  background-size: contain;
+  width: 80%;
+  height: 100%;
+}
+
+.outer-div{
+  display: flex;
+  justify-content: flex-start;
+  width: 20%;
+  height: 100%;
+  border: 2px solid red;
+}
+
+#searchpage-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 20vh;
+  width: 30%;
+  margin: 0 auto;
+  background-color: yellow;
 }
 
 #kennzeichen-suchfeld{
-  margin: 30px;
+  width: 30%;
+  height: 45%;
+  font-size: 90px;
+  text-align: center;
+  border: 2px solid greenyellow;
+}
+
+input[type="checkbox"]{
+  border: solid 2px green;
+}
+
+/*---- DKARTE ----*/
+ul{
+  list-style: none;
 }
 
 .list-element{
   margin: 30px;
 }
 
+/*---- DKARTE ----*/
+
 #map-container {
   height: 100vh;
 }
 
+
+/*---- QUIZ ----*/
 
 .frage{
   margin: 30px;
@@ -38,4 +128,17 @@
 
 .antwort{
   margin: 30px;
+}
+
+
+#logout{
+  background-color: #004593;
+  color: #F3E601;
+  font-family: "Days One", sans-serif;
+  border: none;
+  outline: none;
+}
+
+#logout:hover{
+  cursor: pointer;
 }

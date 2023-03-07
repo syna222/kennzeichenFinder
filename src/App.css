@@ -93,11 +93,13 @@ h1#welcome{
 }
 
 #kennzeichen-suchfeld{
+  outline: 0;
+  border: none;
   width: 30%;
   height: 45%;
-  font-size: 90px;
+  font-size: 100px;
   text-align: center;
-  border: 2px solid greenyellow;
+  border-bottom: 2px solid black;
 }
 
 input[type="checkbox"]{
@@ -114,6 +116,39 @@ input[type="checkbox"]{
   width: 110px;
   object-fit: contain;
 }
+
+/*---- INFO PAGE ----*/
+
+#infopage-div{
+  display: flex;
+  flex-direction: column;
+
+}
+
+#map-container-id{
+  margin: 20px 110px;
+}
+
+#image-container{
+  margin: 20px 110px;
+}
+
+#info-image{
+  width: 100%;
+}
+
+#info-section{
+  margin: 20px 110px;
+  padding-top: 10px;
+  padding-bottom: 30px;
+  background-color: yellow;
+}
+
+#wiki-link{
+  
+}
+
+
 
 /*---- DKARTE ----*/
 ul{

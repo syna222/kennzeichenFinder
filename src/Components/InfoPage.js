@@ -59,24 +59,32 @@ export default function InfoPage({chosenKFZ}){
 
 
     return (
-    <>
+    <div id="infopage-div">
         <h1>{chosenKFZ && chosenKFZ.Stadt_Ort}</h1>
-        <MapContainer id="map-container" center={[longitude, latitude]} zoom={6} scrollWheelZoom={true}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={[longitude, latitude]}/>
-      </MapContainer>
-      <h2>Infos:</h2>
-      {fläche && <div>Fläche: {fläche} km<sup>2</sup></div>}
-      {einwohner && <div>Einwohner: {einwohner}</div>}
-      {bildLink && <img src={bildLink} alt="kennzeichen_image"/>}
-      {chosenKFZ && <div>Landkreis: {chosenKFZ.Landkreis}</div>}
-      {chosenKFZ && <div>Bundesland: {chosenKFZ.Bundesland}</div>}
-      <div><a href={chosenKFZ.Wikipedia_URL} target="_blank" rel="noopener noreferrer">Wikipedia</a></div>
+        <div id="map-container-id">
+            <MapContainer id="map-container" center={[longitude, latitude]} zoom={6} scrollWheelZoom={true}>
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={[longitude, latitude]}/>
+            </MapContainer>
+        </div>
+
+        <div id="image-container">{bildLink && <img id="info-image" src={bildLink} alt="kennzeichen_image"/>}</div>
+
+        <div id="info-section">
+            <h2>Infos:</h2>
+            {fläche && <div>Fläche: {fläche} km<sup>2</sup></div>}
+            {einwohner && <div>Einwohner: {einwohner}</div>}
+            {chosenKFZ && <div>Landkreis: {chosenKFZ.Landkreis}</div>}
+            {chosenKFZ && <div>Bundesland: {chosenKFZ.Bundesland}</div>}
+            <a id="wiki-link" href={chosenKFZ.Wikipedia_URL} target="_blank" rel="noopener noreferrer">Wikipedia</a>
+        </div>
 
 
-    </>
+
+
+    </div>
     );
 }

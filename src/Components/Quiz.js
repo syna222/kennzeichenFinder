@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 export default function Quiz(){
 
     return(
-    <>
-        <div className="list-element"><Link to="/quiz/kfz_stla">Kennzeichen -{'>'} Stadt/Landkreis</Link></div>
-        <div className="list-element"><Link to="/quiz/kfz_bl">Kennzeichen -{'>'} Bundesland</Link></div>
-    </>
+    <div id="quiz">
+        <div className="list-element"><Link className="list-link" to="/quiz/kfz_stla">KENNZEICHEN -{'>'} STADT/ORT</Link></div>
+        <div className="list-element"><Link className="list-link" to="/quiz/kfz_bl">KENNZEICHEN -{'>'} BUNDESLAND</Link></div>
+    </div>
     );
 }
 

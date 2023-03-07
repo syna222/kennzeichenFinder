@@ -6,12 +6,11 @@ export default function Listen(){
 
 
     return(
-    <>
-        <div className="list-element"><Link to="/listen/a-z">A-Z</Link></div>
-        <div className="list-element"><Link to="/listen/nabu">Nach Bundesland</Link></div>
-        <div className="list-element"><Link to="/listen/schoge">Schon gesehen</Link></div>
-        {/*<div className="list-element"><Link to="">Ungesehen</Link></div>*/}
-    </>
+    <div id="listen">
+        <div className="list-element"><Link className="list-link" to="/listen/a-z">A-Z</Link></div>
+        <div className="list-element"><Link className="list-link" to="/listen/nabu">NACH BUNDESLAND</Link></div>
+        <div className="list-element"><Link className="list-link" to="/listen/schoge">SCHON GESEHEN</Link></div>
+    </div>
     );
 }
 

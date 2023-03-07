@@ -38,19 +38,19 @@ export default function SignUp(){
     return(
     <>
         <form onSubmit={handleSubmit}>
-            <section>
+            <section className="form-section">
                 <label htmlFor="username">Username: </label>
                 <input ref={inputUsernameRef} type="text" id="username" name="username" onChange={(e) => setUsername(e.target.value)}/>
             </section>
-            <section>
+            <section className="form-section">
                 <label htmlFor="email">Email: </label>
                 <input ref={inputEmailRef} type="text" id="email" name="email" onChange={(e) => setEmail(e.target.value)}/>
             </section>
-            <section>
+            <section className="form-section">
                 <label htmlFor="passwort">Passwort: </label>
                 <input ref={inputPasswortRef} type="text" id="passwort" name="passwort" onChange={(e) => setPasswort(e.target.value)}/>
             </section>
-            <input type="submit" value="Account erstellen"/>
+            <input className="app-button" type="submit" value="Account erstellen"/>
         </form>
     </>
     );

@@ -49,15 +49,15 @@ export default function Login({setUser, loggedIn, setLoggedIn, setToken}){
     return(
     <>
         <form onSubmit={handleSubmit}>
-        <section>
+            <section className="form-section">
                 <label htmlFor="email">Email: </label>
                 <input ref={inputEmailRef} type="text" id="email" name="email" onChange={(e) => setEmail(e.target.value)}/>
             </section>
-            <section>
+            <section className="form-section">
                 <label htmlFor="passwort">Passwort: </label>
                 <input ref={inputPasswortRef} type="password" id="passwort" name="passwort" onChange={(e) => setPasswort(e.target.value)}/>
             </section>
-            <input type="submit" value="Einloggen"/>
+            <input className="app-button" type="submit" value="Einloggen"/>
         </form>
     </>
     );

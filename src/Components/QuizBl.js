@@ -59,8 +59,8 @@ export default function QuizBl({allKFZ}){
         <h1>Quiz: Kennzeichen -{'>'} Bundesland</h1>
         {isSet && <div className="frage">{`Zu welchem Bundesland gehört das Kennzeichen ${randomKFZ.Kennzeichen} ?`}</div>}
         {isSet && <div className="antwort"><input ref={inputRef} type="text" onChange={handleChange}/></div>}
-        {isSet && <input type="button" onClick={prüfen} value="prüfen"/>}
-        {isSet && <input type="button" onClick={chooseRandom} value="weiter"/>}
+        {isSet && <input className="app-button" type="button" onClick={prüfen} value="prüfen"/>}
+        {isSet && <input className="app-button" type="button" onClick={chooseRandom} value="weiter"/>}
     </>
     );
 }

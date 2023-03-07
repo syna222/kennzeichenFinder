@@ -8,19 +8,21 @@ export default function DKarte({geseheneKFZ}){
 
     return(
     <>
-        <h1>Deutschlandkarte (gesehene Kennzeichen)</h1>
-        <MapContainer id="map-container" center={[51.1586258,10.445921]} zoom={6} scrollWheelZoom={true}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {/*<Marker position={[]}/>*/}
-        {geseheneKFZ.map((kfz, i) => 
-          <Marker key={i} position={[kfz.Längengrad, kfz.Breitengrad]} >
-            <Tooltip>{kfz.Stadt_Ort}</Tooltip>
-          </Marker>
-          )}
-      </MapContainer>
+        <h1 id="dkarte">Deutschlandkarte (gesehene Kennzeichen)</h1>
+        <div className="map-container-id">
+            <MapContainer id="map-container" center={[51.1586258,10.445921]} zoom={6} scrollWheelZoom={true}>
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            {/*<Marker position={[]}/>*/}
+            {geseheneKFZ.map((kfz, i) => 
+              <Marker key={i} position={[kfz.Längengrad, kfz.Breitengrad]} >
+                <Tooltip>{kfz.Stadt_Ort}</Tooltip>
+              </Marker>
+              )}
+            </MapContainer>
+        </div>
     </>
     );
 }

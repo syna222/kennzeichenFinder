@@ -25,13 +25,17 @@
   font-weight: bold;
 }
 
+h1{
+  padding-top: 20px;
+}
+
 /*---- HOME ----*/
 
 h1#welcome{
   color: white;
   background-color: #004593;
   margin: 0;
-  padding: 0;
+  padding-top: 30px;
 }
 
 #home-container{
@@ -50,7 +54,6 @@ h1#welcome{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  border: 2px solid red;
 }
 
 #suchfeld-container{
@@ -60,7 +63,6 @@ h1#welcome{
   margin-top: 5%;
   margin-bottom: 2.5%;
   height: 250px;
-  border: 2px solid black;
 
 }
 
@@ -79,13 +81,13 @@ h1#welcome{
   justify-content: flex-start;
   width: 20%;
   height: 100%;
-  border: 2px solid red;
 }
 
 #searchpage-info{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  font-size: large;
   height: 20vh;
   width: 30%;
   margin: 0 auto;
@@ -102,9 +104,9 @@ h1#welcome{
   border-bottom: 2px solid black;
 }
 
-input[type="checkbox"]{
+/*input[type="checkbox"]{
   border: solid 2px green;
-}
+}*/
 
 #star-btn{
   background-color: white;
@@ -119,18 +121,23 @@ input[type="checkbox"]{
 
 /*---- INFO PAGE ----*/
 
+h1#info{
+  background-color: yellow;
+  margin: 30px 120px 5px;
+  padding-bottom: 20px;
+}
+
 #infopage-div{
   display: flex;
   flex-direction: column;
-
 }
 
-#map-container-id{
-  margin: 20px 110px;
+.map-container-id{
+  margin: 20px 120px;
 }
 
 #image-container{
-  margin: 20px 110px;
+  margin: 20px 120px;
 }
 
 #info-image{
@@ -138,19 +145,27 @@ input[type="checkbox"]{
 }
 
 #info-section{
-  margin: 20px 110px;
+  margin: 20px 120px;
   padding-top: 10px;
   padding-bottom: 30px;
   background-color: yellow;
 }
 
 #wiki-link{
-  
+  margin-top: 25px;
+}
+
+#wiki-link > a {
+  text-decoration: none;
+  color: white;
+  background-color: #004593;
+  padding: 10px;
 }
 
 
 
-/*---- DKARTE ----*/
+/*---- LISTEN ----*/
+
 ul{
   list-style: none;
 }
@@ -160,6 +175,12 @@ ul{
 }
 
 /*---- DKARTE ----*/
+
+h1#dkarte{
+  background-color: yellow;
+  margin: 30px 120px 5px;
+  padding-bottom: 20px;
+}
 
 #map-container {
   height: 100vh;

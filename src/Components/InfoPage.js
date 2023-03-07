@@ -60,8 +60,8 @@ export default function InfoPage({chosenKFZ}){
 
     return (
     <div id="infopage-div">
-        <h1>{chosenKFZ && chosenKFZ.Stadt_Ort}</h1>
-        <div id="map-container-id">
+        <h1 id="info">{chosenKFZ && chosenKFZ.Stadt_Ort}</h1>
+        <div className="map-container-id">
             <MapContainer id="map-container" center={[longitude, latitude]} zoom={6} scrollWheelZoom={true}>
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -79,7 +79,7 @@ export default function InfoPage({chosenKFZ}){
             {einwohner && <div>Einwohner: {einwohner}</div>}
             {chosenKFZ && <div>Landkreis: {chosenKFZ.Landkreis}</div>}
             {chosenKFZ && <div>Bundesland: {chosenKFZ.Bundesland}</div>}
-            <a id="wiki-link" href={chosenKFZ.Wikipedia_URL} target="_blank" rel="noopener noreferrer">Wikipedia</a>
+            {chosenKFZ && <div id="wiki-link"><a href={chosenKFZ.Wikipedia_URL} target="_blank" rel="noopener noreferrer">Wikipedia</a></div>}
         </div>
 
 

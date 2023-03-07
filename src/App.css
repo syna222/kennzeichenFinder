@@ -104,6 +104,17 @@ input[type="checkbox"]{
   border: solid 2px green;
 }
 
+#star-btn{
+  background-color: white;
+  border: none;
+  outline: none;
+}
+
+#star-check{
+  width: 110px;
+  object-fit: contain;
+}
+
 /*---- DKARTE ----*/
 ul{
   list-style: none;

@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import picture1 from "../images/star_icon_yellow.png";
+import picture2 from "../images/star_icon_empty.png";
 
 export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
   const checkboxRef = useRef();
@@ -33,6 +35,7 @@ export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
     if (input !== "") {
       const getInfo = async () => {
         try {
+          setMatch(false)
           const res = await axios.get(
             `https://kennzeichenapi.onrender.com/kennzeichen/${input}`
           );
@@ -81,6 +84,7 @@ export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
     //5. userKennzeichen in state setzen
     //6. match state setzen
 
+    console.log("handleCheck() wird gedrückt")
     //wenn match true && click => KFZ aus DB löschen
     if (match) {
       try {
@@ -112,14 +116,17 @@ export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
           <div className="outer-div">
           </div>
           <div className="inner-div">
-              <input id="kennzeichen-suchfeld" type="text" onChange={(e) => { setInput(e.target.value); }} value={input} />
+              <input id="kennzeichen-suchfeld" type="text" onChange={(e) => { setInput(e.target.value.toUpperCase()); }} value={input} />
           </div>
           <div className="outer-div">
-              <input id="kennzeichen-checkbox" ref={checkboxRef} type="checkbox" onChange={handleCheck} checked={match} />
+              {/*<input id="kennzeichen-checkbox" ref={checkboxRef} type="checkbox" onChange={handleCheck} checked={match} />*/}
+              <button id="star-btn" href="" onClick={handleCheck}>
+                <img id="star-check" src={match ? picture1 : picture2} alt="star-check" />
+              </button>
+
+
           </div>
       </div>
-
-
 
       <div id="searchpage-info">
         <div id="Ort_Stadt"> Stadt/Ort:{" "} {chosenKFZ && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>} </div>

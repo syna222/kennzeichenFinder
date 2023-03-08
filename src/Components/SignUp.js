@@ -48,7 +48,7 @@ export default function SignUp(){
             </section>
             <section className="form-section">
                 <label htmlFor="passwort">Passwort: </label>
-                <input ref={inputPasswortRef} type="text" id="passwort" name="passwort" onChange={(e) => setPasswort(e.target.value)}/>
+                <input ref={inputPasswortRef} type="password" id="passwort" name="passwort" onChange={(e) => setPasswort(e.target.value)}/>
             </section>
             <input className="app-button" type="submit" value="Account erstellen"/>
         </form>

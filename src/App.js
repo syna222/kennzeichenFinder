@@ -45,7 +45,7 @@ export default function App() {
     { name: "Thüringen", kfzs: [] },
   ];
 
-  console.log('userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', user);
+  //console.log('userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', user);
 
   useEffect(() => {
     if (token) {

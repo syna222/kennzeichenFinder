@@ -23,7 +23,7 @@ export default function Login({setUser, loggedIn, setLoggedIn, setToken}){
             Passwort: passwort
           })
           .then(function (response) {
-            console.log('responseeeeee',response.data);      //this is the token
+            //console.log('token',response.data);      //this is the token
             //token in LocalStorage setzen:
             localStorage.setItem("authtoken", response.data.token);
             //userdata als String in LocalStorage setzen:

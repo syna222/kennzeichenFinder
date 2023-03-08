@@ -28,7 +28,7 @@ export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
     checkKennzeichen();
     //hört auch auf match, damit wir bei Match-State Änderung den userKennzeichen state aktualisieren
   }, [match, user]);
-  console.log("1. Users gesehene Kennzeichen sind:", userKennzeichen);
+  //console.log("1. Users gesehene Kennzeichen sind:", userKennzeichen);
 
   //////////2. Wenn Userinput => Infos fetchen//////////könnte man auch mit handleChange zusammenführen, dann auf Async. achten
   useEffect(() => {
@@ -60,8 +60,8 @@ export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
     }
   }, [input]);
 
-  console.log("input", input);
-  console.log("chosenkfz", chosenKFZ);
+  //console.log("input", input);
+  //console.log("chosenkfz", chosenKFZ);
 
   //////////4. Checken ob KFZ bereits in user besteht und match state anpassen//////////
   useEffect(() => {
@@ -75,7 +75,7 @@ export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
     if (input) checkKennzeichen(chosenKFZ);
   }, [chosenKFZ]);
 
-  match && console.log("////////////////MATCH????", match);
+  //match && console.log("////////////////MATCH????", match);
 
   const handleCheck = async () => {
     //1. checken ob KFZ bereits in userKennzeichen ist => match State checken
@@ -84,21 +84,21 @@ export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
     //5. userKennzeichen in state setzen
     //6. match state setzen
 
-    console.log("handleCheck() wird gedrückt")
+    //console.log("handleCheck() wird gedrückt")
     //wenn match true && click => KFZ aus DB löschen
     if (match) {
       try {
         const res = await axios.put(`${URL}/removekennzeichen`, {
           kennzeichenId: chosenKFZ._id, //id des KFZs das entfernt werden soll
         });
-        console.log(res);
+        //console.log(res);
       } catch (err) {
         console.log(err);
       }
       setMatch(false);
       //wenn match false && click => KFZ zu DB hinzufügen
     } else {
-      console.log("no match");
+      //console.log("no match");
       try {
         const res = await axios.put(`${URL}/addkennzeichen`, {
           kennzeichenId: chosenKFZ._id, //id des KFZs das entfernt werden soll
@@ -123,11 +123,8 @@ export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
               <button id="star-btn" href="" onClick={handleCheck}>
                 <img id="star-check" src={match ? picture1 : picture2} alt="star-check" />
               </button>
-
-
           </div>
       </div>
-
       <div id="searchpage-info">
         <div id="Ort_Stadt"> Stadt/Ort:{" "} {chosenKFZ && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>} </div>
         <div id="Landkreis">Landkreis: {chosenKFZ && chosenKFZ.Landkreis}</div>

@@ -22,7 +22,7 @@ export default function SignUp(){
             Passwort: passwort
           })
           .then(function (response) {
-            console.log(response);
+            //console.log(response);
             //console.log("userdaten aus handleSubmit():", userName, email, passwort)
           })
           .catch(function (error) {

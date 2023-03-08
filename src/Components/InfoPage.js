@@ -17,7 +17,7 @@ export default function InfoPage({chosenKFZ}){
       axios
       .get(`https://de.wikipedia.org/w/api.php?action=parse&page=${chosenKFZ.Stadt_Ort}&format=json&origin=*`)
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         const baseText = res.data.parse.text["*"];
         const regexFläche = /Fläche<\/a>:\s*<\/td>\s*<td>([0-9]{0,5}\.*[0-9]{1,5}\,[0-9]{0,5})/;
         const regexEinwohner = /Einwohner(?:<\/a>)?:\\*n*\s*<\/td>\s?\\*n*<td(?: style="line-height: 1.2em;")?>(\d{0,4}(?:\.\d{0,3})?(?:\.\d{0,3})?)/;
@@ -45,11 +45,12 @@ export default function InfoPage({chosenKFZ}){
       .get(`https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${chosenKFZ.Stadt_Ort}&origin=*`)
       .then((res) => {
         const pagesObj = res.data.query.pages;
-        console.log(pagesObj);
+        //console.log(pagesObj);
         const pageNum = Object.keys(pagesObj)[0];
-        console.log(pageNum);
+        //console.log(pageNum);
         const link = pagesObj[pageNum].original.source;
-        console.log(link);
+        //
+        //console.log(link);
         setBildLink(link);
         
       })

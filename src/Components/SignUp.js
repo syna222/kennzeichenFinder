@@ -21,10 +21,7 @@ export default function SignUp(){
             Email: email,
             Passwort: passwort
           })
-          .then(function (response) {
-            //console.log(response);
-            //console.log("userdaten aus handleSubmit():", userName, email, passwort)
-          })
+          .then()
           .catch(function (error) {
             console.log(error.response.data);
             alert(error.response.data);
@@ -32,7 +29,6 @@ export default function SignUp(){
           inputUsernameRef.current.value = "";
           inputEmailRef.current.value = "";
           inputPasswortRef.current.value = "";
-          
     }
 
     return(

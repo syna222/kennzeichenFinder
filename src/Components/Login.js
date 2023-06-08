@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
 export default function Login({setUser, loggedIn, setLoggedIn, setToken}){
 
     const navigate = useNavigate();
@@ -12,20 +11,18 @@ export default function Login({setUser, loggedIn, setLoggedIn, setToken}){
     const [ email, setEmail ] = useState("");
     const [ passwort, setPasswort ] = useState("");
 
-
     function handleSubmit(e){
         e.preventDefault();
         //console.log("userdaten:", email, passwort)
         //an backend senden:
-        const URL = `https://kennzeichenapi.onrender.com/login`;    //beste Route??
+        const URL = `https://kennzeichenapi.onrender.com/login`;
         axios.post(URL, {
             Email: email,
             Passwort: passwort
           })
           .then(function (response) {
-            //console.log('token',response.data);      //this is the token
             //token in LocalStorage setzen:
-            localStorage.setItem("authtoken", response.data.token);
+            localStorage.setItem("authtoken", response.data.token);  //wenn das Posten nicht funktioniert (also kein token zurückkommt), dann springt er in den catch block und setLoggedin findet nicht statt!
             //userdata als String in LocalStorage setzen:
             localStorage.setItem("user", JSON.stringify(response.data.user))
             //state vars setzen:
@@ -42,9 +39,6 @@ export default function Login({setUser, loggedIn, setLoggedIn, setToken}){
           inputEmailRef.current.value = "";
           inputPasswortRef.current.value = "";
     }
-
-
-
 
     return(
     <>

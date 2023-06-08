@@ -17,8 +17,10 @@ import { NavLink, Routes, Route, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function App() {
-  const [ user, setUser ] = useState(JSON.parse(localStorage.getItem("user")));   //hier schon JSON.parse()?
-  const [chosenKFZ, setChosenKFZ] = useState(""); //das hier in SearchPage setzen und an InfoPage passen
+
+  const navigate = useNavigate();
+  const [ user, setUser ] = useState(JSON.parse(localStorage.getItem("user")));
+  const [chosenKFZ, setChosenKFZ] = useState(""); // passed to SearchPage + InfoPage
   const [allKFZ, setAllKFZ] = useState([]); //passed down to AZ component
   const [KFZSortedBL, setKFZSortedBL] = useState([]); //sorting by Bundesland to pass down to NaBu component
   const [bundesländer, setBundesländer] = useState([]);
@@ -45,8 +47,6 @@ export default function App() {
     { name: "Thüringen", kfzs: [] },
   ];
 
-  //console.log('userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', user);
-
   useEffect(() => {
     if (token) {
       setLoggedIn(true);
@@ -59,26 +59,18 @@ export default function App() {
       .get(`https://kennzeichenapi.onrender.com/kennzeichen/?sortkfz=true`)
       .then((res) => {
         setAllKFZ(res.data);
-      }) //console.log(res.data);
-      .catch((err) => console.log(err))
-      .then(function (json) {
-        // always executed
-      });
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
     //alle Kennzeichen nach Bundesland (u. innerhalb alphabetisch) fetchen + als state variable speichern:
     axios
-      .get(
-        `https://kennzeichenapi.onrender.com/kennzeichen/?sortkfz=true&sortbu=true`
-      )
+      .get(`https://kennzeichenapi.onrender.com/kennzeichen/?sortkfz=true&sortbu=true`)
       .then((res) => {
         setKFZSortedBL(res.data);
-      }) //console.log(res.data);
-      .catch((err) => console.log(err))
-      .then(function (json) {
-        // always executed
-      });
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
@@ -86,21 +78,15 @@ export default function App() {
     //listeBundesländer durchlaufen, für jedes die jeweiligen aus KFZSortedBL rausziehen und in kfzs-feld speichern:
     listeBundesländer.forEach((bu, i) => {
       const bundesland = bu.name;
-      //console.log("bundesland ist:", bundesland);
-      //console.log("KFZSortedBL ist:", KFZSortedBL)
       const results = KFZSortedBL.filter(
         (obj) => obj.Bundesland === bundesland
       );
-      //console.log(results);
       //bu.kfzs = results; das funktioniert nicht, weil bu.kfzs nicht der tatsächliche Objekt-Teil ist!!
       listeBundesländer[i].kfzs = results;
     });
     //listeBundesländer als state-var setzen:
-    //console.log("listeBundesländer: ", listeBundesländer);
     setBundesländer(listeBundesländer);
   }, [KFZSortedBL]);
-
-  //console.log("TEST aus App.js/ KFZSortedBL is: ", KFZSortedBL);
 
   function compareKFZAlphab(a, b){
     if(a.Kennzeichen < b.Kennzeichen){
@@ -114,7 +100,6 @@ export default function App() {
 
     useEffect(() => {
         //zieht für userID die schon gesehenen KFZs raus + übergibt als prop an SchoGe-Komponente:
-        //ACHTUNG! userid wird hier hardgecodet auf Viola! später ändern!
         if(user){
           const user_id = user._id;
           const URL = `https://kennzeichenapi.onrender.com/users/${user_id}`;
@@ -128,28 +113,18 @@ export default function App() {
         }
     }, [user]);
 
-  //console.log("token is:", token);
-  // if(user){
-  //   console.log("user email is:", user.Email);
-  //   console.log("user id ist:", user._id);
-  //   console.log("user gesehene kfz sind:", user.Gesehene_Kennzeichen);
-  // }
-  const navigate = useNavigate();
-
   function handleClick(e){
       e.preventDefault();
-      if(loggedIn){           //überflüssig?
+      if(loggedIn){
           //token aus LocalStorage nehmen:
           localStorage.removeItem("authtoken"); 
           localStorage.removeItem("user");
           //login auf false:
           setLoggedIn(false);
-          //muss setToken auf undefined?
           setToken();
           navigate("/");
       }
   }
-  
 
   return (
     <div className="App">

@@ -1,133 +1,93 @@
-import axios from 'axios';
-import { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import picture1 from "../images/star_icon_yellow.png";
+import picture2 from "../images/star_icon_empty.png";
 
-export default function SearchPage({setChosenKFZ, chosenKFZ}){
+export default function SearchPage({ user, token, setChosenKFZ, chosenKFZ }) {
 
-    const checkboxRef = useRef();
+    const [userKennzeichen, setUserKennzeichen] = useState([]);
+    const [input, setInput] = useState("");
+    const [match, setMatch] = useState(false);
+    const [message, setMessage ] = useState("");
 
-    const [ changed, setChanged ] = useState(false);     //for conditional rendering
-    const [ checked, setChecked ] = useState(false); 
-    const [ geseheneKFZ, setGeseheneKFZ ] = useState([]);     //mit [] initialisieren?
-    const [ readyToCheck, setReadyToCheck ] = useState(false);
-
-    //direkt am Anfang alle gesehenen Kfzs des Users fetchen + in state var packen:
+    //1. alle gesehenen Kfzs des Users fetchen:
     useEffect(() => {
-        //ACHTUNG! userid wird hier hardgecodet auf Viola! später ändern!
-        const user_id = "63ff6f9c858ac063472de5b7"
-        const URL = `https://kennzeichenapi.onrender.com/users/${user_id}`;
-        axios.get(URL)
+        axios.get(`https://kennzeichenapi.onrender.com/users/${user._id}`)
+        .then(res => setUserKennzeichen(res.data.Gesehene_Kennzeichen))
+        .catch(err => console.log(err));
+    }, [match, user]);  //hört auch auf match, damit bei match-state-Änderung userKennzeichen neu gefetcht werden
+
+    //2. wenn user -> input, --> Infos fetchen
+    useEffect(() => {
+        if(input !== ""){
+            setMatch(false); //set back
+            axios.get(`https://kennzeichenapi.onrender.com/kennzeichen/${input}`)
             .then(res => {
-                setGeseheneKFZ(res.data.Gesehene_Kennzeichen);
+                if(res.data.length){
+                    setChosenKFZ(res.data[0]);
+                    setMessage("");  //set back
+                }
+                else{
+                    setChosenKFZ("");
+                    setMessage("no match!");
+                }
             })
-            .catch(err => console.log(err))
-    }, []);
-
-
-
-    function checkKennzeichenForUser(){
-        let isInList = false;
-        //check if chosenKFZ._id in res.data.Gesehene_Kennzeichen/geseheneKFZ (only if chosenKFZ is set yet!):
-        if(chosenKFZ && geseheneKFZ){
-            console.log("test aus checkKennzeichenForUser");
-            const doesExist = (kfz) => kfz._id === chosenKFZ._id;
-            console.log("chosenKFZ ist:", chosenKFZ);       //undefined obwohl in Komponente hier nicht undefined (in return wird auf chosenKFZ zugegriffen und korrekt ausgegeben)
-            console.log("chosenKFZ._id ist:", chosenKFZ._id);   //undefined
-            console.log("test, checkedKFZ ist:", geseheneKFZ);      //geht rein, aber erkennt nicht.
-            isInList = geseheneKFZ.some(doesExist);
-            console.log("isInList ist gerade:", isInList);
+            .catch(err => console.log(err));
         }
-        return isInList;
-    }
+        else{ //kein userinput
+            setChosenKFZ(null);
+            setMatch(false);
+        }
+    }, [input]);
 
-    function handleChange(e){
-        //fetch from API:
-        const input = e.target.value;
-        const URL = `https://kennzeichenapi.onrender.com/kennzeichen/${input}`;
+    //3. checken, ob kfz bereits in user schon besteht + match state anpassen:
+    useEffect(() => {
         if(input){
-            axios.get(URL)
-            .then(res => {
-                //console.log(res.data[0]); 
-                setChosenKFZ(res.data[0]); 
-                setChanged(true);
-            })
-            .catch(err => console.log(err))
-            //hier muss checkbox gesetzt werden, falls chosenKFZ._id schon in user's Gesehene_Kennzeichen:
-
-            //DAS FOLGENDE LÄUFT ZU FRÜH - BEVOR FETCH OBEN DRÜBER ABGESCHLOSSEN IST. - evtl. hier neuen useEffect() triggern?
-            
-            
-            const isInList = checkKennzeichenForUser();
-            console.log("ist schon in Gesehene_Kennzeichen des Users:", isInList);
-
+            const isInList = userKennzeichen.some(uk => uk._id === chosenKFZ._id);
+            if (isInList) {
+                setMatch(true);
+              }
         }
-        else{
-            setChanged(false);
-            //checkbox unchecken:
-            setChecked(false);
-            checkboxRef.current.checked = false;
-        }
-    }
-
-
+    }, [chosenKFZ]);
 
 
     function handleCheck(){
-        //wird zu seinem Gegenteil, damit bei setChecked(true) und input defined das Kfz gespeichert wird...
-        if(checked === false){
-            setChecked(true);
-            console.log("checked is true");
-            //KfZ wird gespeichert via put-request:
-            const kfz_id = chosenKFZ._id;
-            //ACHTUNG! userid wird hier hardgecodet auf Viola! später ändern!
-            const user_id = "63ff6f9c858ac063472de5b7"
-            const URL = `https://kennzeichenapi.onrender.com/users/${user_id}/addkennzeichen`;
-            //console.log(URL);
-            //post to new url:
-            axios.put(URL, {
-                kennzeichenId: kfz_id       //muss kennzeichenId heißen, weil in backend so destrukturiert angegeben
-            })
-              .then(function (response) {
-                //console.log(response);
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
-
+        //wenn match true && click => KFZ aus user db löschen:
+        if(match){
+            axios.put(`https://kennzeichenapi.onrender.com/users/${user._id}/removekennzeichen`, { kennzeichenId: chosenKFZ._id }, 
+            { headers: { "authtoken": token } })
+            .then(setMatch(false))  //als setback //hier oder nach catch?
+            .catch(err => console.log(err));
         }
-        else{
-            setChecked(false);
-            console.log("checked is false");
-            //KfZ wird aus Speicher gelöscht via put-request:
-            const kfz_id = chosenKFZ._id;
-            //ACHTUNG! userid wird hier hardgecodet auf Viola! später ändern!
-            const user_id = "63ff6f9c858ac063472de5b7"
-            const URL = `https://kennzeichenapi.onrender.com/users/${user_id}/removekennzeichen`;
-            //console.log(URL);
-            //post to new url:
-            axios.put(URL, {
-                kennzeichenId: kfz_id       //muss kennzeichenId heißen, weil in backend so destrukturiert angegeben
-            })
-              .then(function (response) {
-                //console.log(response);
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
+        else{ //wenn match false && click => KFZ zu user db hinzufügen
+            axios.put(`https://kennzeichenapi.onrender.com/users/${user._id}/addkennzeichen`, { kennzeichenId: chosenKFZ._id }, 
+            { headers: { "authtoken": token } })
+            .then(setMatch(true))  //als setback // hier oder nach catch?
+            .catch(err => console.log(err));
         }
-
-
     }
 
-
-  return (
-    <>
-        <input id="kennzeichen-suchfeld" type="text" onChange={handleChange}/>
-        <input ref={checkboxRef} type="checkbox" onChange={handleCheck} />
-        <div>changed: {changed.toString()}</div>
-        <div id="Ort_Stadt">Stadt/Ort: {changed && chosenKFZ && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>}</div>
-        <div id="Landkreis">Landkreis: {changed &&  chosenKFZ && chosenKFZ.Landkreis}</div>
-        <div id="bundesland">Bundesland: {changed &&  chosenKFZ && chosenKFZ.Bundesland}</div>
-    </>
-  );
+    return (
+        <div id="searchpage-div">
+          <div id="suchfeld-container">
+              <div className="outer-div">
+              </div>
+              <div className="inner-div">
+                  <input id="kennzeichen-suchfeld" type="text" onChange={(e) => { setInput(e.target.value.toUpperCase()); }} value={input} />
+              </div>
+              <div className="outer-div">
+                  <button id="star-btn" href="" onClick={handleCheck}>
+                    <img id="star-check" src={match ? picture1 : picture2} alt="star-check" />
+                  </button>
+              </div>
+          </div>
+          <div id="searchpage-info">
+            <div id="Ort_Stadt"> Stadt/Ort:{" "} {chosenKFZ && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>} </div>
+            <div id="Landkreis">Landkreis: {chosenKFZ && chosenKFZ.Landkreis}</div>
+            <div id="bundesland">Bundesland: {chosenKFZ && chosenKFZ.Bundesland}</div>
+            {message && <div>{message}</div>}
+          </div>
+        </div>
+      );
 }

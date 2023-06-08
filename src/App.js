@@ -8,7 +8,8 @@ import Listen from "./Components/Listen";
 import Login from "./Components/Login";
 import NaBu from "./Components/NaBu";
 import SchoGe from "./Components/SchoGe";
-import SearchPage from "./Components/SearchPageNew";
+//import SearchPage from "./Components/SearchPageNew";
+import SearchPage from "./Components/SearchJune";
 import SignUp from "./Components/SignUp";
 import Quiz from "./Components/Quiz";
 import QuizStLa from "./Components/QuizStLa";
@@ -26,7 +27,7 @@ export default function App() {
   const [bundesländer, setBundesländer] = useState([]);
   const [ geseheneKFZ, setGeseheneKFZ ] = useState([]); //passed down to SchoGe component
   const [ loggedIn, setLoggedIn ] = useState(false); //passed down to Login component
-  const [ token, setToken ] = useState(localStorage.getItem("authtoken")); //passed down to Login component
+  const [ token, setToken ] = useState(localStorage.getItem("authtoken")); //passed down to Login component + to SearchPage
 
   let listeBundesländer = [
     { name: "Baden-Württemberg", kfzs: [] },
@@ -126,6 +127,8 @@ export default function App() {
       }
   }
 
+  console.log("chosenKFZ from App.js is: ", chosenKFZ)
+
   return (
     <div className="App">
       <nav id="navbar">
@@ -162,7 +165,7 @@ export default function App() {
         <Route path="/" element={<Home />}/>
         {!loggedIn && <><Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login setUser={setUser} loggedIn={loggedIn} setLoggedIn={setLoggedIn} setToken={setToken}/>} /></>}
-        {loggedIn && <><Route path="/suche" element={ <SearchPage user={user} setChosenKFZ={setChosenKFZ} chosenKFZ={chosenKFZ} /> } />
+        {loggedIn && <><Route path="/suche" element={ <SearchPage user={user} token={token} setChosenKFZ={setChosenKFZ} chosenKFZ={chosenKFZ} /> } />
         <Route path="/aktuelles_kfz" element={<InfoPage chosenKFZ={chosenKFZ} />} />
         <Route path="/listen" element={<Listen />} />
         <Route path="/listen/a-z" element={<AZ allKFZ={allKFZ} />} />

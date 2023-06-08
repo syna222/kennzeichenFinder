@@ -5,6 +5,7 @@ import picture1 from "../images/star_icon_yellow.png";
 import picture2 from "../images/star_icon_empty.png";
 
 export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
+
   const checkboxRef = useRef();
 
   const [userKennzeichen, setUserKennzeichen] = useState([]);
@@ -35,13 +36,13 @@ export default function SearchPage({ user, setChosenKFZ, chosenKFZ }) {
     if (input !== "") {
       const getInfo = async () => {
         try {
-          setMatch(false)
+          setMatch(false)  //??
           const res = await axios.get(
             `https://kennzeichenapi.onrender.com/kennzeichen/${input}`
           );
           if(res.data.length){
             setChosenKFZ(res.data[0]);
-            setMessage("");
+            setMessage("");  //??
           }
           else{
             //set message as state var:

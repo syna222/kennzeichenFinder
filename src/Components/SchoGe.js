@@ -1,5 +1,4 @@
 
-
 export default function SchoGe({geseheneKFZ, geseheneCount, gesamtCount}){
 
     return(

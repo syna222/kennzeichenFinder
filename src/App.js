@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 export default function App() {
 
   const navigate = useNavigate();
+  const baseURL = process.env.REACT_APP_API_BASE_URL;
   const [ user, setUser ] = useState(JSON.parse(localStorage.getItem("user")));
   const [chosenKFZ, setChosenKFZ] = useState(""); // passed to SearchPage + InfoPage
   const [allKFZ, setAllKFZ] = useState([]); //passed down to AZ component
@@ -56,7 +57,7 @@ export default function App() {
   useEffect(() => {
     //alle Kennzeichen alphabetisch fetchen + als state variable speichern :
     axios
-      .get(`https://kennzeichenapi.onrender.com/kennzeichen/?sortkfz=true`)
+      .get(`${baseURL}/kennzeichen/?sortkfz=true`)
       .then((res) => {
         setAllKFZ(res.data);
       })
@@ -66,7 +67,7 @@ export default function App() {
   useEffect(() => {
     //alle Kennzeichen nach Bundesland (u. innerhalb alphabetisch) fetchen + als state variable speichern:
     axios
-      .get(`https://kennzeichenapi.onrender.com/kennzeichen/?sortkfz=true&sortbu=true`)
+      .get(`${baseURL}/kennzeichen/?sortkfz=true&sortbu=true`)
       .then((res) => {
         setKFZSortedBL(res.data);
       })
@@ -102,7 +103,7 @@ export default function App() {
         //zieht für userID die schon gesehenen KFZs raus + übergibt als prop an SchoGe-Komponente:
         if(user){
           const user_id = user._id;
-          const URL = `https://kennzeichenapi.onrender.com/users/${user_id}`;
+          const URL = `${baseURL}/users/${user_id}`;
           axios.get(URL)
               .then(res => {
                 let gesehene = res.data.Gesehene_Kennzeichen;

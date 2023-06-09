@@ -3,6 +3,7 @@ import axios from 'axios';
 
 export default function SignUp(){
 
+    const baseURL = process.env.REACT_APP_API_BASE_URL;
     const inputUsernameRef = useRef();
     const inputEmailRef = useRef();
     const inputPasswortRef = useRef();
@@ -15,7 +16,7 @@ export default function SignUp(){
         e.preventDefault();
         //console.log("userdaten:", userName, email, passwort)
         //an backend senden:
-        const URL = `https://kennzeichenapi.onrender.com/users`;
+        const URL = `${baseURL}/users`;
         axios.post(URL, {
             Username: userName,
             Email: email,

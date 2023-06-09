@@ -6,6 +6,7 @@ import picture2 from "../images/star_icon_empty.png";
 
 export default function SearchPage({ user, token, setChosenKFZ, chosenKFZ }) {
 
+    const baseURL = process.env.REACT_APP_API_BASE_URL;
     const [userKennzeichen, setUserKennzeichen] = useState([]);
     const [input, setInput] = useState("");
     const [match, setMatch] = useState(false);
@@ -13,7 +14,7 @@ export default function SearchPage({ user, token, setChosenKFZ, chosenKFZ }) {
 
     //1. alle gesehenen Kfzs des Users fetchen:
     useEffect(() => {
-        axios.get(`https://kennzeichenapi.onrender.com/users/${user._id}`)
+        axios.get(`${baseURL}/users/${user._id}`)
         .then(res => setUserKennzeichen(res.data.Gesehene_Kennzeichen))
         .catch(err => console.log(err));
     }, [match, user]);  //hört auch auf match, damit bei match-state-Änderung userKennzeichen neu gefetcht werden
@@ -22,7 +23,7 @@ export default function SearchPage({ user, token, setChosenKFZ, chosenKFZ }) {
     useEffect(() => {
         if(input !== ""){
             setMatch(false); //set back
-            axios.get(`https://kennzeichenapi.onrender.com/kennzeichen/${input}`)
+            axios.get(`${baseURL}/kennzeichen/${input}`)
             .then(res => {
                 if(res.data.length){
                     setChosenKFZ(res.data[0]);
@@ -55,13 +56,13 @@ export default function SearchPage({ user, token, setChosenKFZ, chosenKFZ }) {
     function handleCheck(){
         //wenn match true && click => KFZ aus user db löschen:
         if(match){
-            axios.put(`https://kennzeichenapi.onrender.com/users/${user._id}/removekennzeichen`, { kennzeichenId: chosenKFZ._id }, 
+            axios.put(`${baseURL}/users/${user._id}/removekennzeichen`, { kennzeichenId: chosenKFZ._id }, 
             { headers: { "authtoken": token } })
             .then(setMatch(false))  //als setback //hier oder nach catch?
             .catch(err => console.log(err));
         }
         else{ //wenn match false && click => KFZ zu user db hinzufügen
-            axios.put(`https://kennzeichenapi.onrender.com/users/${user._id}/addkennzeichen`, { kennzeichenId: chosenKFZ._id }, 
+            axios.put(`${baseURL}/users/${user._id}/addkennzeichen`, { kennzeichenId: chosenKFZ._id }, 
             { headers: { "authtoken": token } })
             .then(setMatch(true))  //als setback // hier oder nach catch?
             .catch(err => console.log(err));

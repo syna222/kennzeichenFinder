@@ -18,8 +18,6 @@ export default function Logout({loggedIn, setLoggedIn, setToken}){
         }
     }
 
-
-
     return(
     <>
         <button onClick={handleClick}>Ausloggen</button>

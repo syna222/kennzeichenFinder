@@ -5,7 +5,6 @@ import { MapContainer, TileLayer, Marker, Tooltip } from 'react-leaflet';
 
 export default function DKarte({geseheneKFZ}){
 
-
     return(
     <>
         <h1 id="dkarte">Deutschlandkarte (gesehene Kennzeichen)</h1>

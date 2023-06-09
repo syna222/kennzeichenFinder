@@ -1,7 +1,5 @@
 
-
 export default function AZ({allKFZ}){
-
 
     return(
     <>

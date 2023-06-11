@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css?family=Days+One');
+
+.App {
+  text-align: center;
+  font-family: "Days One", sans-serif;
+  font-size: large;
+}
+
+#navbar{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #004593;
+  
+}
+
+.nav-element{
+  color: #F3E601;
+  margin: 20px;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.active{
+  color: white;
+  font-weight: bold;
+}
+
+h1{
+  padding-top: 20px;
+}
+
+li{
+  margin: 15px;
+}
+
+.app-button{
+  background-color: #004593;
+  color: #F3E601;
+  font-family: "Days One", sans-serif;
+  font-size: medium;
+  border: none;
+  outline: none;
+  margin: 10px;
+}
+
+/*---- HOME ----*/
+
+h1#welcome{
+  color: white;
+  background-color: #004593;
+  margin: 0;
+  padding-top: 30px;
+}
+
+#home-container{
+  height: 100vh;
+  background-color: #004593;
+}
+
+#home-image{
+  width: 60%;
+}
+
+/*---- SEARCH PAGE ----*/
+
+
+

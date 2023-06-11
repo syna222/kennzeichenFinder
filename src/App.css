@@ -78,7 +78,13 @@ h1#welcome{
   margin-top: 5%;
   margin-bottom: 2.5%;
   height: 250px;
+}
 
+.outer-div{
+  display: flex;
+  justify-content: flex-start;
+  width: 20%;
+  height: 100%;
 }
 
 .inner-div{
@@ -91,11 +97,14 @@ h1#welcome{
   height: 100%;
 }
 
-.outer-div{
-  display: flex;
-  justify-content: flex-start;
-  width: 20%;
-  height: 100%;
+#kennzeichen-suchfeld{
+  width: 30%;
+  height: 45%;
+  font-size: 100px;
+  text-align: center;
+  outline: 0;
+  border: none;
+  border-bottom: 2px solid black;
 }
 
 #searchpage-info{
@@ -107,22 +116,6 @@ h1#welcome{
   margin: 0 auto;
   background-color: yellow;
 }
-
-#kennzeichen-suchfeld{
-  outline: 0;
-  border: none;
-  width: 30%;
-  height: 45%;
-  font-size: 100px;
-  /* font-size: 1rem; */
-  /*font-size: 7vw;*/
-  text-align: center;
-  border-bottom: 2px solid black;
-}
-
-/*input[type="checkbox"]{
-  border: solid 2px green;
-}*/
 
 #star-btn{
   background-color: white;

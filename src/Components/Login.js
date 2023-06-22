@@ -41,18 +41,19 @@ export default function Login({setUser, loggedIn, setLoggedIn, setToken}){
     }
 
     return(
-    <>
-        <form onSubmit={handleSubmit}>
-            <section className="form-section">
-                <label htmlFor="email">Email: </label>
-                <input ref={inputEmailRef} type="text" id="email" name="email" onChange={(e) => setEmail(e.target.value)}/>
-            </section>
-            <section className="form-section">
-                <label htmlFor="passwort">Passwort: </label>
-                <input ref={inputPasswortRef} type="password" id="passwort" name="passwort" onChange={(e) => setPasswort(e.target.value)}/>
-            </section>
-            <input className="app-button" type="submit" value="Einloggen"/>
+    <div className="login-page">
+        <form className="login-form" onSubmit={handleSubmit}>
+            
+                <label className="label-login-mail" htmlFor="email">Email: </label>
+                <input className="input-login-mail" ref={inputEmailRef} type="text" id="email" name="email" onChange={(e) => setEmail(e.target.value)}/>
+ 
+                <label className="label-login-password" htmlFor="passwort">Passwort: </label>
+                <input className="input-login-password" ref={inputPasswortRef} type="password" id="passwort" name="passwort" onChange={(e) => setPasswort(e.target.value)}/>
+                <div className="button-container-login">
+                    <input className="app-button" type="submit" value="Einloggen"/>
+                </div>
+
         </form>
-    </>
+    </div>
     );
 }

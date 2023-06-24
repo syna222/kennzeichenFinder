@@ -265,7 +265,7 @@ label {
   flex: 1;    /*shorthand for flex-grow: 1; flex-shrink: 1; flex-basis: 0%*/
 }
 
-input {
+.form-input {
   flex: 2;   /*shorthand for flex-grow: 2; flex-shrink: 1; flex-basis: 0%*/
 }
 

@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import picture1 from "../images/star_icon_yellow.png";
-import picture2 from "../images/star_icon_empty.png";
+import euLogo from "../images/euflag.jpg";
+import starFilled from "../images/star_icon_yellow.png";
+import starEmpty from "../images/star_icon_empty.png";
 
 export default function SearchPage({ user, token, setChosenKFZ, chosenKFZ }) {
 
@@ -70,25 +71,36 @@ export default function SearchPage({ user, token, setChosenKFZ, chosenKFZ }) {
     }
 
     return (
-        <div id="searchpage-div">
-          <div id="suchfeld-container">
-              <div className="outer-div">
-              </div>
-              <div className="inner-div">
-                  <input id="kennzeichen-suchfeld" type="text" onChange={(e) => { setInput(e.target.value.toUpperCase()); }} value={input} />
-              </div>
-              <div className="outer-div">
-                  <button id="star-btn" href="" onClick={handleCheck}>
-                    <img id="star-check" src={match ? picture1 : picture2} alt="star-check" />
-                  </button>
-              </div>
-          </div>
-          <div id="searchpage-info">
-            <div id="Ort_Stadt"> Stadt/Ort:{" "} {chosenKFZ && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>} </div>
-            <div id="Landkreis">Landkreis: {chosenKFZ && chosenKFZ.Landkreis}</div>
-            <div id="bundesland">Bundesland: {chosenKFZ && chosenKFZ.Bundesland}</div>
+        <div className="searchpage">
+            <div className="suchfeld-leiste">
+                <div className="outer-div"></div>
+                <div className="inner-div">
+                    <div className="laengsstreifen">
+                        <img className="logo-image" src={euLogo} width="100px" alt="eulogo by vecteezy/Adam Lapunik"/>
+                        <div className="logo-d">D</div>
+                    </div>
+                    <input className="search-input" type="text" maxlength="4" onChange={(e) => { setInput(e.target.value.toUpperCase()); }} value={input}/>
+                </div>
+                <div className="outer-div"></div>
+            </div>
+            <div className="sternkasten">
+                <img src={match ? starFilled : starEmpty} alt="star-check" onClick={handleCheck}/>
+            </div>
+            <div className="infokasten">
+                <section className="info-section">
+                    <label>Stadt/Ort: </label>
+                    <div className="info-answer">{chosenKFZ && <Link to="/aktuelles_kfz">{chosenKFZ.Stadt_Ort}</Link>}</div>
+                </section>
+                <section className="info-section">
+                    <label>Landkreis: </label>
+                    <div className="info-answer">{chosenKFZ && chosenKFZ.Landkreis}</div>
+                </section>
+                <section className="info-section">
+                    <label>Bundesland: </label>
+                    <div className="info-answer">{chosenKFZ && chosenKFZ.Bundesland}</div>
+                </section>
+            </div>
             {message && <div>{message}</div>}
-          </div>
         </div>
       );
 }

@@ -64,69 +64,91 @@ h1#welcome{
 
 /*---- SEARCH PAGE ----*/
 
-#searchpage-div{
+.searchpage {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-#suchfeld-container{
-  display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: 5%;
-  margin-bottom: 2.5%;
-  height: 250px;
+  gap: 30px;
 }
 
-.outer-div{
+.suchfeld-leiste {
   display: flex;
-  justify-content: flex-start;
-  width: 20%;
+  height: 200px;
+}
+
+.inner-div {
+  display: flex;
+  border: 4px solid black;
+  border-radius: 25px;
   height: 100%;
 }
 
-.inner-div{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: url(/public/kfz_2.jpg) no-repeat center;
-  background-size: contain;
-  width: 80%;
-  height: 100%;
-}
-
-#kennzeichen-suchfeld{
-  width: 30%;
-  height: 45%;
-  font-size: 100px;
+.laengsstreifen {
+  background-color: #0149bf;
+  width: 130px;
+  border-radius: 25px 0 0 25px;
   text-align: center;
-  outline: 0;
-  border: none;
-  border-bottom: 2px solid black;
 }
 
-#searchpage-info{
+.logo-d {
+  color: white;
+  font-size: 60px;
+}
+
+.logo-image {
+  border-radius: 50%;
+  margin-top: 15px;
+}
+
+.search-input {
+  font-size: 10vh;
+  border-radius: 0 25px 25px 0;
+  width: 99.2%;
+  text-align: center;
+}
+
+.outer-div {
+  width: 20%;
+  text-align: center;
+}
+
+.sternkasten {
+  text-align: center;
+  margin-top: 2%;
+}
+
+.sternkasten > img {
+  width: 15vh;
+}
+
+.infokasten {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 20vh;
-  width: 30%;
-  margin: 0 auto;
-  background-color: yellow;
+  background-color: #ffe401;
+  align-self: center;
+  padding: 1.5% 2%;
 }
 
-#star-btn{
-  background-color: white;
-  border: none;
-  outline: none;
+.info-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-#star-check{
-  width: 110px;
-  object-fit: contain;
+.info-section > label {
+  font-size: 2.5vh;
+  margin-right: 5px;
+  flex: 1 1 8vw;
 }
+
+.info-answer {
+  font-size: 2.5vh;
+  /* text-align: center; */
+  flex: 2 1 16vw;
+}
+
 
 /*---- INFO PAGE ----*/
 

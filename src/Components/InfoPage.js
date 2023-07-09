@@ -60,32 +60,67 @@ export default function InfoPage({chosenKFZ}){
 
 
     return (
-    <div id="infopage-div">
-        <h1 id="info">{chosenKFZ && chosenKFZ.Stadt_Ort}</h1>
-        <div className="map-container-id">
-            <MapContainer id="map-container" center={[longitude, latitude]} zoom={6} scrollWheelZoom={true}>
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={[longitude, latitude]}/>
-            </MapContainer>
+    // <div id="infopage-div">
+    //     <h1 id="info">{chosenKFZ && chosenKFZ.Stadt_Ort}</h1>
+    //     <div className="map-container-id">
+    //         <MapContainer id="map-container" center={[longitude, latitude]} zoom={6} scrollWheelZoom={true}>
+    //             <TileLayer
+    //               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    //               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    //             />
+    //             <Marker position={[longitude, latitude]}/>
+    //         </MapContainer>
+    //     </div>
+
+    //     <div id="image-container">{bildLink && <img id="info-image" src={bildLink} alt="kennzeichen_image"/>}</div>
+
+    //     <div id="info-section">
+    //         <h2>Infos:</h2>
+    //         {fläche && <div>Fläche: {fläche} km<sup>2</sup></div>}
+    //         {einwohner && <div>Einwohner: {einwohner}</div>}
+    //         {chosenKFZ && <div>Landkreis: {chosenKFZ.Landkreis}</div>}
+    //         {chosenKFZ && <div>Bundesland: {chosenKFZ.Bundesland}</div>}
+    //         {chosenKFZ && <div id="wiki-link"><a href={chosenKFZ.Wikipedia_URL} target="_blank" rel="noopener noreferrer">Wikipedia</a></div>}
+    //     </div>
+    // </div>
+    
+    <div className="infopage">
+        <h1 className="infopage-title">{chosenKFZ && chosenKFZ.Stadt_Ort}</h1>
+        <div className="map-container">
+          <MapContainer id="map-container" center={[longitude, latitude]} zoom={6} scrollWheelZoom={true}>
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Marker position={[longitude, latitude]}/>
+              </MapContainer>
         </div>
-
-        <div id="image-container">{bildLink && <img id="info-image" src={bildLink} alt="kennzeichen_image"/>}</div>
-
-        <div id="info-section">
-            <h2>Infos:</h2>
-            {fläche && <div>Fläche: {fläche} km<sup>2</sup></div>}
-            {einwohner && <div>Einwohner: {einwohner}</div>}
-            {chosenKFZ && <div>Landkreis: {chosenKFZ.Landkreis}</div>}
-            {chosenKFZ && <div>Bundesland: {chosenKFZ.Bundesland}</div>}
-            {chosenKFZ && <div id="wiki-link"><a href={chosenKFZ.Wikipedia_URL} target="_blank" rel="noopener noreferrer">Wikipedia</a></div>}
+        <div className="image-container">
+          {bildLink && <img id="info-image" src={bildLink} alt="kennzeichen_image"/>}
         </div>
+        <div className="infokasten">
+            <section className="info-section">
+                <label>Fläche: </label>
+                {fläche && <div className="info-answer">{fläche} km<sup>2</sup></div>}
+            </section>
+            <section className="info-section">
+                <label>Einwohner: </label>
+                {einwohner && <div className="info-answer">{einwohner}</div>}
+            </section>
+            <section className="info-section">
+                <label>Landkreis: </label>
+                {chosenKFZ && <div className="info-answer">{chosenKFZ.Landkreis}</div>}
+            </section>
+            <section className="info-section">
+                <label>Bundesland: </label>
+                {chosenKFZ && <div className="info-answer">{chosenKFZ.Bundesland}</div>}
+            </section>
+            {chosenKFZ && <div className="wiki-link"><a href={chosenKFZ.Wikipedia_URL} target="_blank" rel="noopener noreferrer">Wikipedia</a></div>}
+        </div>
+      </div>
 
 
 
 
-    </div>
     );
 }

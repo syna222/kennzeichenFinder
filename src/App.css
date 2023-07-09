@@ -16,8 +16,8 @@
 
 .nav-element{
   color: #F3E601;
-  margin: 20px;
-  font-size: 1.5rem;
+  margin: 2vh 3vh;
+  font-size: 3.5vh;
   text-decoration: none;
 }
 
@@ -27,7 +27,9 @@
 }
 
 h1{
-  padding-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 0;
 }
 
 li{
@@ -45,7 +47,6 @@ li{
 }
 
 /*---- HOME ----*/
-
 h1#welcome{
   color: white;
   background-color: #004593;
@@ -63,7 +64,6 @@ h1#welcome{
 }
 
 /*---- SEARCH PAGE ----*/
-
 .searchpage {
   display: flex;
   flex-direction: column;
@@ -128,7 +128,9 @@ h1#welcome{
   justify-content: center;
   background-color: #ffe401;
   align-self: center;
-  padding: 1.5% 2%;
+  /* padding: 1.5% 2%; */
+  padding: 10px 20px 20px;
+  margin-bottom: 20px;
 }
 
 .info-section {
@@ -151,42 +153,36 @@ h1#welcome{
 
 
 /*---- INFO PAGE ----*/
-
-h1#info{
-  background-color: yellow;
-  margin: 30px 120px 5px;
-  padding-bottom: 20px;
-}
-
-#infopage-div{
+.infopage {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  gap: 25px;
+  margin: 0 5vw;
 }
 
-.map-container-id{
-  margin: 20px 120px;
+.infopage-title {
+  background-color: #ffe401;
+  width: 100%;
+  text-align: center;
 }
 
-#image-container{
-  margin: 20px 120px;
-}
-
-#info-image{
+.map-container  > img {
   width: 100%;
 }
 
-#info-section{
-  margin: 20px 120px;
-  padding-top: 10px;
-  padding-bottom: 30px;
-  background-color: yellow;
+.image-container > img {
+  width: 100%;
 }
 
-#wiki-link{
-  margin-top: 25px;
+.wiki-link {
+  margin-top: 20px;
+  flex-grow: 1;
 }
 
-#wiki-link > a {
+.wiki-link > a {
+  display: inline-flex;
+  font-size: 2.5vh;
   text-decoration: none;
   color: white;
   background-color: #004593;

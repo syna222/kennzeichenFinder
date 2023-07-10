@@ -6,7 +6,7 @@ import { MapContainer, TileLayer, Marker, Tooltip } from 'react-leaflet';
 export default function DKarte({geseheneKFZ}){
 
     return(
-    <>
+    <div className="map-page">
         <h1 id="dkarte">Deutschlandkarte (gesehene Kennzeichen)</h1>
         <div className="map-container-id">
             <MapContainer id="map-container" center={[51.1586258,10.445921]} zoom={6} scrollWheelZoom={true}>
@@ -22,7 +22,7 @@ export default function DKarte({geseheneKFZ}){
               )}
             </MapContainer>
         </div>
-    </>
+    </div>
     );
 }
 

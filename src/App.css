@@ -74,9 +74,9 @@ h1#welcome{
 
 .suchfeld-leiste {
   display: flex;
-  /* height: 200px; */
   height: 30vh;
   margin-top: 5vh;
+  justify-content: center;
 }
 
 .inner-div {

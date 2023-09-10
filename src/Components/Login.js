@@ -4,6 +4,7 @@ import axios from 'axios';
 
 export default function Login({setUser, loggedIn, setLoggedIn, setToken}){
 
+    const baseURL = process.env.REACT_APP_API_BASE_URL;
     const navigate = useNavigate();
     const inputEmailRef = useRef();
     const inputPasswortRef = useRef();
@@ -15,7 +16,7 @@ export default function Login({setUser, loggedIn, setLoggedIn, setToken}){
         e.preventDefault();
         //console.log("userdaten:", email, passwort)
         //an backend senden:
-        const URL = `https://kennzeichenapi.onrender.com/login`;
+        const URL = `${baseURL}/login`;
         axios.post(URL, {
             Email: email,
             Passwort: passwort
